@@ -103,11 +103,23 @@ export class PlayerController extends BaseScriptComponent {
     }
     
     /**
-     * Обробка свайпу вгору (поки що порожня)
+     * Handle up swipe input and trigger jump animation
      */
     upSwipe(): void {
-        print("Up swipe detected - not implemented yet");
-        // TODO: Реалізувати рух вгору
+        print("Up swipe detected - triggering jump");
+        
+        if (!this.animationStateManager) {
+            print("ERROR: animationStateManager not assigned!");
+            return;
+        }
+        
+        // Trigger jump animation using Animation State Manager
+        if ((this.animationStateManager as any).setTrigger) {
+            (this.animationStateManager as any).setTrigger("jump");
+            print("Jump animation triggered");
+        } else {
+            print("ERROR: setTrigger method not found in Animation State Manager");
+        }
     }
     
     /**
