@@ -1,0 +1,47 @@
+- !<AssetImportMetadata/297be42a-2548-4614-9d42-40e0a857fa25>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 77169d31-5de3-4d64-a6c3-cb9afed2292c
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 77169d31-5de3-4d64-a6c3-cb9afed2292c
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 3ca5b023-0be3-48a6-a460-469d7aaf6b01
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/3ca5b023-0be3-48a6-a460-469d7aaf6b01>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 8f59f211-b2bf-4bb2-8724-a891702cd33f
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    animationStateManager: false
+    playerObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - animationStateManager: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      playerObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Component.ScriptComponent animationStateManager
+    - // @input SceneObject playerObject

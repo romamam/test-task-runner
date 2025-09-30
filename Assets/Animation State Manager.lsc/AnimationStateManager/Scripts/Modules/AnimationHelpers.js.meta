@@ -1,0 +1,43 @@
+- !<AssetImportMetadata/eba925fc-6133-40e2-0fa2-270b86619db2>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 8742f841-99ed-459d-a51b-fafe48bdf7c8
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 8742f841-99ed-459d-a51b-fafe48bdf7c8
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    JavaScriptAsset: !<own> 11cc8b16-adca-4d03-bad8-ec40f91f2824
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<ScriptAssetData/11cc8b16-adca-4d03-bad8-ec40f91f2824>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: A module with animation helpers
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 4c060adb-1f73-3253-2cea-604df43c6d5e
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    {}
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    -
+      {}
+  ScriptTypes:
+    -
+      {}

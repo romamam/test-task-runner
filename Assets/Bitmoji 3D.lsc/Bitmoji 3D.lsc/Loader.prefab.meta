@@ -1,0 +1,74 @@
+- !<AssetImportMetadata/7bca89e6-7652-c33d-cc02-304aa85e871f>
+  ImportedAssetIds:
+    ObjectPrefab: !<reference> 3642f110-de5e-4fcd-9cf9-bdd9164d8108
+  ImporterName: ObjectPrefabImporter
+  PrimaryAsset: !<reference> 3642f110-de5e-4fcd-9cf9-bdd9164d8108
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    ObjectPrefab: !<own> 69471207-6550-4322-b2fc-6f9fd6f0f85e
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<Image/01e44035-b098-40fd-966b-cc7b1b87e472>
+  PrefabRemaps:
+    []
+  Name: Image
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Fit
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 708dd4ea-41c7-44e9-9c37-978528d5c29c
+  FlipX: false
+  FlipY: false
+  RotationAngle: 0
+  Pivot: {x: 0.000000, y: 0.000000}
+  ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+- !<ObjectPrefab/0aaf1034-b58e-4335-a026-654b5f384acb>
+  PackagePath: ""
+  objects:
+    - !<own> c7b72f83-152b-4e32-8760-173098dececb
+  LazyLoading: false
+  RetainAssets: true
+- !<LookAtComponent/18e15a94-ffa2-4fab-868f-e0aa3119d01c>
+  PrefabRemaps:
+    []
+  Name: Look At
+  Enabled: true
+  LookAtMode: LookAtDirection
+  AimVectors: ZAimYUp
+  WorldUpVector: ObjectY
+  Target: !<reference> 00000000-0000-0065-0000-000000000064
+  OffsetRotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+- !<ObjectPrefabAssetData/69471207-6550-4322-b2fc-6f9fd6f0f85e>
+  SourceRemaps:
+    - 27a46bff-b394-439c-9480-831352f1b1c4: 01e44035-b098-40fd-966b-cc7b1b87e472
+    - 3642f110-de5e-4fcd-9cf9-bdd9164d8108: 0aaf1034-b58e-4335-a026-654b5f384acb
+    - b616f24e-55dd-4b8a-bcea-ea0219a40dd3: 18e15a94-ffa2-4fab-868f-e0aa3119d01c
+    - e9468ba6-aeb2-4a2f-b7c8-b263708d0a5e: c7b72f83-152b-4e32-8760-173098dececb
+  SourceState: !<own> 0aaf1034-b58e-4335-a026-654b5f384acb
+- !<SceneObject/c7b72f83-152b-4e32-8760-173098dececb>
+  PrefabRemaps:
+    []
+  Name: Loader
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 50.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 20.000000, y: 20.000000, z: 20.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 01e44035-b098-40fd-966b-cc7b1b87e472
+    - !<own> 18e15a94-ffa2-4fab-868f-e0aa3119d01c

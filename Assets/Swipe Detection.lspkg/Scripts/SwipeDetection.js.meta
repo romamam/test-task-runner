@@ -1,0 +1,98 @@
+- !<AssetImportMetadata/0d49396e-97f5-ba4b-6510-0fccc976e5fa>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 3784c95e-c2d9-467a-838e-0bd1fccad5e6
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 3784c95e-c2d9-467a-838e-0bd1fccad5e6
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    JavaScriptAsset: !<own> e0f4ac19-a850-483c-8e3a-4d12ee1da2b1
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<ScriptAssetData/e0f4ac19-a850-483c-8e3a-4d12ee1da2b1>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 1
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 89c6b69a-22cf-4315-ac9d-632589d59f25
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cardinalSwipes: false
+    diagonalSwipes: false
+    down: false
+    downFuncNames: false
+    left: false
+    leftAndDown: false
+    leftAndDownFuncNames: false
+    leftAndUp: false
+    leftAndUpFuncNames: false
+    leftFuncNames: false
+    right: false
+    rightAndDown: false
+    rightAndDownFuncNames: false
+    rightAndUp: false
+    rightAndUpFuncNames: false
+    rightFuncNames: false
+    scriptWithApi: false
+    showDebugMessage: false
+    swipeMinDistance: false
+    up: false
+    upFuncNames: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - swipeMinDistance: 0.500000
+      cardinalSwipes: false
+      diagonalSwipes: false
+      showDebugMessage: false
+      left: !<reference.ScriptComponent[]>
+        []
+      right: !<reference.ScriptComponent[]>
+        []
+      up: !<reference.ScriptComponent[]>
+        []
+      down: !<reference.ScriptComponent[]>
+        []
+      leftAndUp: !<reference.ScriptComponent[]>
+        []
+      leftAndDown: !<reference.ScriptComponent[]>
+        []
+      rightAndUp: !<reference.ScriptComponent[]>
+        []
+      rightAndDown: !<reference.ScriptComponent[]>
+        []
+      scriptWithApi: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      leftFuncNames: !<string[]>
+        []
+      rightFuncNames: !<string[]>
+        []
+      upFuncNames: !<string[]>
+        []
+      downFuncNames: !<string[]>
+        []
+      leftAndUpFuncNames: !<string[]>
+        []
+      leftAndDownFuncNames: !<string[]>
+        []
+      rightAndUpFuncNames: !<string[]>
+        []
+      rightAndDownFuncNames: !<string[]>
+        []
+  ScriptTypes:
+    -
+      {}

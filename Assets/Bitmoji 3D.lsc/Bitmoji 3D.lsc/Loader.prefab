@@ -1,0 +1,51 @@
+- !<ObjectPrefab/3642f110-de5e-4fcd-9cf9-bdd9164d8108>
+  PackagePath: ""
+  objects:
+    - !<own> e9468ba6-aeb2-4a2f-b7c8-b263708d0a5e
+  LazyLoading: false
+  RetainAssets: true
+- !<Image/27a46bff-b394-439c-9480-831352f1b1c4>
+  PrefabRemaps:
+    []
+  Name: Image
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Fit
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 405d384e-9453-43b6-9f86-36d73c07c1a6
+  FlipX: false
+  FlipY: false
+  RotationAngle: 0
+  Pivot: {x: 0.000000, y: 0.000000}
+  ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+- !<LookAtComponent/b616f24e-55dd-4b8a-bcea-ea0219a40dd3>
+  PrefabRemaps:
+    []
+  Name: Look At
+  Enabled: true
+  LookAtMode: LookAtDirection
+  AimVectors: ZAimYUp
+  WorldUpVector: ObjectY
+  Target: !<reference> 00000000-0000-0065-0000-000000000064
+  OffsetRotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+- !<SceneObject/e9468ba6-aeb2-4a2f-b7c8-b263708d0a5e>
+  PrefabRemaps:
+    []
+  Name: Loader
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 50.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 20.000000, y: 20.000000, z: 20.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 27a46bff-b394-439c-9480-831352f1b1c4
+    - !<own> b616f24e-55dd-4b8a-bcea-ea0219a40dd3
