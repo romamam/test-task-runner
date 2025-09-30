@@ -27,6 +27,9 @@ export class PlayerController extends BaseScriptComponent {
     private movementTime: number = 2.5; // Загальний час руху
     private currentMoveTime: number = 0; // Поточний час руху
     
+    // Змінна для швидкості руху вперед
+    private speed: number = 50; // Швидкість руху вперед
+    
     // Змінні для керування напрямком анімації
     private currentDir: number = 0; // Поточний напрямок (-1 = ліво, 0 = центр, 1 = право)
     private targetDir: number = 0; // Цільовий напрямок
@@ -155,6 +158,18 @@ export class PlayerController extends BaseScriptComponent {
         // Оновлюємо анімацію тільки якщо напрямок змінився
         if (Math.abs(this.currentDir - previousDir) > 0.01) {
             this.updateAnimationDirection();
+        }
+        
+        // Безперервно зменшуємо currentPos.z для симуляції руху вперед
+        const deltaTime = getDeltaTime();
+        this.currentPosition.z -= this.speed * deltaTime;
+        
+        // Оновлюємо targetPos.z щоб відповідати оновленому currentPos.z
+        this.targetPosition.z = this.currentPosition.z;
+        
+        // Застосовуємо оновлену цільову позицію до Transform гравця
+        if (this.playerObject) {
+            this.playerObject.getTransform().setLocalPosition(this.targetPosition);
         }
     }
     
