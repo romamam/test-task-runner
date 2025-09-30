@@ -1,0 +1,47 @@
+- !<AssetImportMetadata/0e6e51a2-d62d-4c69-bf49-ee6a3692d98d>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 9b3ff4c8-0db2-4fdf-aec6-56539e1ae951
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 9b3ff4c8-0db2-4fdf-aec6-56539e1ae951
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 32ddada0-0b05-4b11-abe9-400b5ff5ebcb
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/32ddada0-0b05-4b11-abe9-400b5ff5ebcb>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 06e709d0-3a56-4fcd-8751-1f78cda4e01c
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    follower: false
+    target: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - target: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      follower: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject target {"hint":"Bitmoji object that the camera follows"}'
+    - '// @input SceneObject follower {"hint":"Camera that follows the target"}'
