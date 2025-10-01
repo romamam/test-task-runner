@@ -1,7 +1,7 @@
 CollapsedEntities:
   type: stringset
   value:
-    size: 10
+    size: 65
     values:
       - Animation State Manager.lsc
       - Animation State Manager.lsc/package.native
@@ -9,8 +9,63 @@ CollapsedEntities:
       - Bitmoji 3D.lsc
       - Bitmoji 3D.lsc/package.native
       - Echopark.hdr
+      - Materials
+      - Materials/Obstacle_Material.mat
+      - Meshes
+      - Prefabs/ObstacleTile 2.prefab
+      - Prefabs/ObstacleTile.prefab
+      - Prefabs/Obstacles/High_Obstacle
+      - Prefabs/Obstacles/High_Obstacle.prefab
+      - Prefabs/Obstacles/High_Obstacle/.hidden
+      - Prefabs/Obstacles/High_Obstacle/.hidden/Material.001.ss_graph
+      - Prefabs/Obstacles/High_Obstacle/.hidden/white.jpg
+      - Prefabs/Obstacles/High_Obstacle/High_Obstacle.prefab
+      - Prefabs/Obstacles/High_Obstacle/Materials
+      - Prefabs/Obstacles/High_Obstacle/Materials/Material.001.mat
+      - Prefabs/Obstacles/High_Obstacle/Materials/Material.005.mat
+      - Prefabs/Obstacles/High_Obstacle/Materials/Material.006.mat
+      - Prefabs/Obstacles/High_Obstacle/Materials/Material.007.mat
+      - Prefabs/Obstacles/High_Obstacle/Materials/Material.008.mat
+      - Prefabs/Obstacles/High_Obstacle/Materials/Material.009.mat
+      - Prefabs/Obstacles/High_Obstacle/Materials/Material.010.mat
+      - Prefabs/Obstacles/High_Obstacle/Meshes
+      - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.001.mesh
+      - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.002.mesh
+      - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.003.mesh
+      - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.004.mesh
+      - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.005.mesh
+      - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.006.mesh
+      - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.007.mesh
+      - Prefabs/Obstacles/Short_Obstacle
+      - Prefabs/Obstacles/Short_Obstacle/.hidden
+      - Prefabs/Obstacles/Short_Obstacle/.hidden/Material.001.ss_graph
+      - Prefabs/Obstacles/Short_Obstacle/.hidden/white.jpg
+      - Prefabs/Obstacles/Short_Obstacle/Materials
+      - Prefabs/Obstacles/Short_Obstacle/Materials/Material.001.mat
+      - Prefabs/Obstacles/Short_Obstacle/Materials/Material.005.mat
+      - Prefabs/Obstacles/Short_Obstacle/Materials/Material.006.mat
+      - Prefabs/Obstacles/Short_Obstacle/Materials/Material.007.mat
+      - Prefabs/Obstacles/Short_Obstacle/Materials/Material.008.mat
+      - Prefabs/Obstacles/Short_Obstacle/Materials/Material.009.mat
+      - Prefabs/Obstacles/Short_Obstacle/Materials/Material.010.mat
+      - Prefabs/Obstacles/Short_Obstacle/Meshes
+      - Prefabs/Obstacles/Short_Obstacle/Meshes/Cube.001.mesh
+      - Prefabs/Obstacles/Short_Obstacle/Meshes/Cube.002.mesh
+      - Prefabs/Obstacles/Short_Obstacle/Meshes/Cube.003.mesh
+      - Prefabs/Obstacles/Short_Obstacle/Meshes/Cube.004.mesh
+      - Prefabs/Obstacles/Short_Obstacle/Meshes/Cube.005.mesh
+      - Prefabs/Obstacles/Short_Obstacle/Meshes/Cube.006.mesh
+      - Prefabs/Obstacles/Short_Obstacle/Meshes/Cube.007.mesh
+      - Prefabs/Obstacles/Short_Obstacle/Short_Obstacle.prefab
+      - Prefabs/Obstacles/Short_obstacle.prefab
+      - Prefabs/Tile.prefab
       - Scene.scene
       - Scripts
+      - Scripts/ObstacleInstantiator.ts
+      - Scripts/PlayerController.ts
+      - Shaders
+      - Shaders/Obstacle_Shader.ss_graph
+      - Swipe Detection
       - Swipe Detection/Swipe Detection.lspkg/package.native
       - Texture
   options: 4

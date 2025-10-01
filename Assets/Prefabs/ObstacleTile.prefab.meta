@@ -1,0 +1,99 @@
+- !<AssetImportMetadata/c38cd786-642e-4c1e-897a-4053ed831cce>
+  ImportedAssetIds:
+    ObjectPrefab: !<reference> cb19b5b5-600d-4f62-b443-08dd3195d10f
+  ImporterName: ObjectPrefabImporter
+  PrimaryAsset: !<reference> cb19b5b5-600d-4f62-b443-08dd3195d10f
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    ObjectPrefab: !<own> 846563fe-c123-45ba-8d3a-3182790f8ed9
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<SceneObject/67677e0d-952f-46e3-8c3b-484b8e87942e>
+  PrefabRemaps:
+    []
+  Name: ObstacleTileMain
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> aaae653a-36af-401d-9c00-e9c279619160
+  Components:
+    - !<own> a36133d7-8c4b-4433-8343-904f327a5a35
+- !<ObjectPrefabAssetData/846563fe-c123-45ba-8d3a-3182790f8ed9>
+  SourceRemaps:
+    - 0ff0f2e0-ac67-469a-9c06-b0261de7b6a7: 67677e0d-952f-46e3-8c3b-484b8e87942e
+    - 3db71115-29f5-442f-ba93-e5037676102b: aaae653a-36af-401d-9c00-e9c279619160
+    - 6aebfbc5-a5c0-4d41-8a5d-cbe30b2c3ad6: a36133d7-8c4b-4433-8343-904f327a5a35
+    - cb19b5b5-600d-4f62-b443-08dd3195d10f: 91ee2c8f-1f46-4c5c-b855-89a2c34ec5a2
+    - ee1223f4-325e-4f7a-8383-2f9c10db69d0: a5710c4d-f17c-4e39-af2d-c964d127468c
+  SourceState: !<own> 91ee2c8f-1f46-4c5c-b855-89a2c34ec5a2
+- !<ObjectPrefab/91ee2c8f-1f46-4c5c-b855-89a2c34ec5a2>
+  PackagePath: ""
+  objects:
+    - !<own> 67677e0d-952f-46e3-8c3b-484b8e87942e
+  LazyLoading: false
+  RetainAssets: true
+- !<ScriptComponent/a36133d7-8c4b-4433-8343-904f327a5a35>
+  PrefabRemaps:
+    []
+  Name: ObstacleInstantiator
+  Enabled: true
+  ScriptAsset: !<reference> e2b12b3f-8b91-4bbc-8bd0-25c3216fb244
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      obstacles: !<reference.ObjectPrefab[]>
+        - !<reference> 6c531449-f944-49e3-8380-6e954d1b8fc7
+        - !<reference> 0244485b-8986-45ca-b1a9-2bc7a34ab276
+        - !<reference> 3adbb900-8591-41bb-bfbd-a8668000fb7b
+  ScriptTypes:
+    "":
+      {}
+- !<RenderMeshVisual/a5710c4d-f17c-4e39-af2d-c964d127468c>
+  PrefabRemaps:
+    []
+  Name: Render Mesh Visual
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> c88f98dd-648c-49b7-be47-7c478df206bc
+  Mesh: !<reference> 0aed7282-2419-4658-90e8-9105940f125a
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/aaae653a-36af-401d-9c00-e9c279619160>
+  PrefabRemaps:
+    []
+  Name: Tile
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: -30.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 125.000000, y: 1.000000, z: 300.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> a5710c4d-f17c-4e39-af2d-c964d127468c

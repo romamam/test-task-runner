@@ -1,0 +1,75 @@
+- !<ObjectPrefab/cb19b5b5-600d-4f62-b443-08dd3195d10f>
+  PackagePath: ""
+  objects:
+    - !<own> 0ff0f2e0-ac67-469a-9c06-b0261de7b6a7
+  LazyLoading: false
+  RetainAssets: true
+- !<SceneObject/0ff0f2e0-ac67-469a-9c06-b0261de7b6a7>
+  PrefabRemaps:
+    []
+  Name: ObstacleTileMain
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 3db71115-29f5-442f-ba93-e5037676102b
+  Components:
+    - !<own> 6aebfbc5-a5c0-4d41-8a5d-cbe30b2c3ad6
+- !<SceneObject/3db71115-29f5-442f-ba93-e5037676102b>
+  PrefabRemaps:
+    []
+  Name: Tile
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: -30.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 125.000000, y: 1.000000, z: 300.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> ee1223f4-325e-4f7a-8383-2f9c10db69d0
+- !<ScriptComponent/6aebfbc5-a5c0-4d41-8a5d-cbe30b2c3ad6>
+  PrefabRemaps:
+    []
+  Name: ObstacleInstantiator
+  Enabled: true
+  ScriptAsset: !<reference> e2b12b3f-8b91-4bbc-8bd0-25c3216fb244
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      obstacles: !<reference.ObjectPrefab[]>
+        - !<reference> 6c531449-f944-49e3-8380-6e954d1b8fc7
+        - !<reference> 0244485b-8986-45ca-b1a9-2bc7a34ab276
+        - !<reference> 3adbb900-8591-41bb-bfbd-a8668000fb7b
+  ScriptTypes:
+    "":
+      {}
+- !<RenderMeshVisual/ee1223f4-325e-4f7a-8383-2f9c10db69d0>
+  PrefabRemaps:
+    []
+  Name: Render Mesh Visual
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> c88f98dd-648c-49b7-be47-7c478df206bc
+  Mesh: !<reference> 0aed7282-2419-4658-90e8-9105940f125a
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
