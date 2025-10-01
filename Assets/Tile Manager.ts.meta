@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/b2514a87-a0a2-476e-8a45-e5193cd823f5>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> ae3c909a-4207-405a-a666-77ce1922852b
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> ae3c909a-4207-405a-a666-77ce1922852b
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 12da4692-031a-47d2-9ee6-d92914b2cd30
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/12da4692-031a-47d2-9ee6-d92914b2cd30>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: d5d1da02-4732-47da-8b33-032fdb9a51ce
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    initialTileCount: false
+    player: false
+    tileLength: false
+    tilePrefab: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - player: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      tilePrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      tileLength: !<float> 50.000000
+      initialTileCount: !<float> 5.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject player {"hint":"Player object to track position"}'
+    - '// @input Asset.ObjectPrefab tilePrefab {"hint":"Tile prefab to instantiate"}'
+    - '// @input number tileLength = 50 {"hint":"Length of each tile"}'
+    - '// @input number initialTileCount = 5 {"hint":"Number of tiles to spawn initially"}'
