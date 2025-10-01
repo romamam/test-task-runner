@@ -19,6 +19,24 @@
     - !<own> 3db71115-29f5-442f-ba93-e5037676102b
   Components:
     - !<own> 6aebfbc5-a5c0-4d41-8a5d-cbe30b2c3ad6
+- !<ColliderComponent/25e6f569-a5f5-44a2-9d1e-806ebd60e3b2>
+  PrefabRemaps:
+    []
+  Name: Physics Collider
+  Enabled: true
+  Shape: !<Box>
+    FitVisual: false
+    Size: {x: 1.000000, y: 1.000000, z: 1.000000}
+  Matter: !<reference> 00000000-0000-0000-0000-000000000000
+  Filter: !<reference> 00000000-0000-0000-0000-000000000000
+  OverlapFilter: !<reference> 00000000-0000-0000-0000-000000000000
+  WorldSettings: !<reference> 00000000-0000-0000-0000-000000000000
+  EnableSmoothing: false
+  PositionTension: 30.000000
+  RotationTension: 30.000000
+  ForceCompound: false
+  Intangible: false
+  ShowCollider: false
 - !<SceneObject/3db71115-29f5-442f-ba93-e5037676102b>
   PrefabRemaps:
     []
@@ -31,7 +49,7 @@
     Scale: {x: 125.000000, y: 1.000000, z: 300.000000}
     HasSegmentScaleCompensation: false
   Children:
-    []
+    - !<own> ea239a9a-fe65-4faf-be07-ff0708e98f95
   Components:
     - !<own> ee1223f4-325e-4f7a-8383-2f9c10db69d0
 - !<ScriptComponent/6aebfbc5-a5c0-4d41-8a5d-cbe30b2c3ad6>
@@ -53,6 +71,21 @@
   ScriptTypes:
     "":
       {}
+- !<SceneObject/ea239a9a-fe65-4faf-be07-ff0708e98f95>
+  PrefabRemaps:
+    []
+  Name: Collider
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 25e6f569-a5f5-44a2-9d1e-806ebd60e3b2
 - !<RenderMeshVisual/ee1223f4-325e-4f7a-8383-2f9c10db69d0>
   PrefabRemaps:
     []
