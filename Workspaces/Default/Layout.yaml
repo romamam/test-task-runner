@@ -24,6 +24,8 @@ dock:
                 Uuid: a14d85d7-9a15-42a6-913e-3f24dea267c2
               - persistentName: Snap.Plugin.AssistantAI.Panel
                 Uuid: df91b2cf-37e1-401c-83fc-3d9f83343e71
+              - persistentName: Com.Snap.Bitmoji.BitmojiSuite
+                Uuid: 295f2de0-e1a3-48cd-9960-8f3692f78514
             type: section
             current: 0
           - items:
