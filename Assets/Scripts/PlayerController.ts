@@ -24,11 +24,11 @@ export class PlayerController extends BaseScriptComponent {
     private step: number = 0; // Крок для плавного руху
     
     // Змінні для системи часу руху
-    private movementTime: number = 2.5; // Загальний час руху
+    private movementTime: number = 0.2; // Загальний час руху
     private currentMoveTime: number = 0; // Поточний час руху
     
     // Змінна для швидкості руху вперед
-    private speed: number = 50; // Швидкість руху вперед
+    private speed: number = 20; // Швидкість руху вперед
     
     // Змінні для керування напрямком анімації
     private currentDir: number = 0; // Поточний напрямок (-1 = ліво, 0 = центр, 1 = право)
@@ -56,6 +56,12 @@ export class PlayerController extends BaseScriptComponent {
     leftSwipe(): void {
         print("Left swipe detected");
         
+    
+        if (this.changeDir) {
+            print("Movement in progress - input blocked");
+            return;
+        }
+        
         // Перевіряємо, чи playerObject призначений
         if (!this.playerObject) {
             print("ERROR: playerObject not assigned!");
@@ -68,7 +74,7 @@ export class PlayerController extends BaseScriptComponent {
         // Перевіряємо, чи гравець не вийде за ліву межу екрану
         if (this.currentPosition.x >= 0) {
             this.changeDir = true;
-            this.step = -15; // Рухаємо вліво з кроком -5
+            this.step = -2; // Рухаємо вліво з кроком -5
             this.targetDir = -1; // Встановлюємо цільовий напрямок вліво
             print("Moving left - current position: " + this.currentPosition.x);
         } else {
@@ -82,6 +88,11 @@ export class PlayerController extends BaseScriptComponent {
     rightSwipe(): void {
         print("Right swipe detected");
         
+        if (this.changeDir) {
+            print("Movement in progress - input blocked");
+            return;
+        }
+        
         // Перевіряємо, чи playerObject призначений
         if (!this.playerObject) {
             print("ERROR: playerObject not assigned!");
@@ -94,7 +105,7 @@ export class PlayerController extends BaseScriptComponent {
         // Перевіряємо, чи гравець не вийде за праву межу екрану
         if (this.currentPosition.x <= 0) {
             this.changeDir = true;
-            this.step = 15; // Рухаємо вправо з кроком 5
+            this.step = 2; // Рухаємо вправо з кроком 5
             this.targetDir = 1; // Встановлюємо цільовий напрямок вправо
             print("Moving right - current position: " + this.currentPosition.x);
         } else {
@@ -148,7 +159,7 @@ export class PlayerController extends BaseScriptComponent {
                 print("Movement completed - final position: " + this.currentPosition.x);
             } else {
                 // Рухується - оновлюємо час та позицію
-                this.currentMoveTime += 0.5; // Збільшуємо час на 0.5
+                this.currentMoveTime += getDeltaTime(); // Збільшуємо час на 0.5
                 
                 // Оновлюємо targetPos.x додаючи step
                 this.targetPosition.x += this.step;
