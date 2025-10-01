@@ -34,7 +34,7 @@ export class CameraFollow extends BaseScriptComponent {
     }
     
     /**
-     * Smoothly follow the target while maintaining fixed X position and using lerp for smooth movement
+     * Smoothly follow the target while maintaining fixed X position and following only Z movement
      */
     private onUpdate(): void {
         if (!this.target || !this.follower) {
@@ -42,22 +42,18 @@ export class CameraFollow extends BaseScriptComponent {
         }
         
         const followerTransform = this.follower.getTransform();
-        const followerCurrentPos = followerTransform.getWorldPosition();
-        
-        followerCurrentPos.x = this.initialFollowerX;
-        
         const targetTransform = this.target.getTransform();
-        const targetCurrentPos = targetTransform.getWorldPosition();
-        const desiredPos = targetCurrentPos.add(this.offset);
         
-        const distance = followerCurrentPos.sub(desiredPos).length;
+        let currentFollowerPos = followerTransform.getWorldPosition();
+        currentFollowerPos.x = this.initialFollowerX;
         
-        if (distance > this.followThreshold) {
-            const newPos = vec3.lerp(followerCurrentPos, desiredPos, this.smoothFactor);
-            
-            followerTransform.setWorldPosition(newPos);
-            
-            // print("Camera position: " + followerTransform.getWorldPosition().toString());
+        let targetPos = targetTransform.getWorldPosition().add(this.offset);
+        
+        if (currentFollowerPos.distance(targetPos) > this.followThreshold) {
+            followerTransform.setWorldPosition(vec3.lerp(
+                currentFollowerPos, targetPos, this.smoothFactor));
         }
+        
+        // print("Camera position: " + followerTransform.getWorldPosition().toString());
     }
 }
