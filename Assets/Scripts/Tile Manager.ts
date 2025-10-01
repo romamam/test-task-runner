@@ -57,7 +57,7 @@ export class TileManager extends BaseScriptComponent {
         }
         
         const newTile = prefabToUse.instantiate(this.sceneObject);
-        const tilePosition = new vec3(0, -20, this.zSpawn);
+        const tilePosition = new vec3(0, 0, this.zSpawn);
         newTile.getTransform().setLocalPosition(tilePosition);
         this.grounds.push(newTile);
         this.zSpawn -= this.tileLength;
@@ -68,7 +68,7 @@ export class TileManager extends BaseScriptComponent {
      * Move tile to the end of the sequence
      */
     private resetTile(tile: SceneObject): void {
-        const newPosition = new vec3(0, -20, this.zSpawn);
+        const newPosition = new vec3(0, 0, this.zSpawn);
         tile.getTransform().setLocalPosition(newPosition);
         this.zSpawn -= this.tileLength;
         print("Tile reset to z: " + this.zSpawn);

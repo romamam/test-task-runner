@@ -26,6 +26,7 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    firstTilePrefab: false
     initialTileCount: false
     player: false
     tileLength: false
@@ -41,6 +42,7 @@
   DefaultScriptInputs:
     - player: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       tilePrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      firstTilePrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
       tileLength: !<float> 50.000000
       initialTileCount: !<float> 5.000000
   ScriptTypes:
@@ -48,6 +50,7 @@
       {}
   InputLines:
     - '// @input SceneObject player {"hint":"Player object to track position"}'
-    - '// @input Asset.ObjectPrefab tilePrefab {"hint":"Tile prefab to instantiate"}'
+    - '// @input Asset.ObjectPrefab tilePrefab {"hint":"Regular tile prefab with obstacles"}'
+    - '// @input Asset.ObjectPrefab firstTilePrefab {"hint":"First tile prefab without obstacles"}'
     - '// @input number tileLength = 50 {"hint":"Length of each tile"}'
     - '// @input number initialTileCount = 5 {"hint":"Number of tiles to spawn initially"}'
