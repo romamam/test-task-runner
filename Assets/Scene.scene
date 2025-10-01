@@ -3,6 +3,8 @@
   objects:
     - !<own> 00000000-0000-0065-0000-000000000064
     - !<own> 0005641c-028d-459a-0000-000000014b4d
+    - !<own> 0c436229-3a40-41b7-90fc-e1384b13b2bf
+    - !<own> 8ca96c1d-fb05-4936-ab1b-335d1f301247
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
       []
@@ -169,3 +171,393 @@
   DecayType: None
   DecayLimit: false
   DecayRange: 40.000000
+- !<SceneObject/0c436229-3a40-41b7-90fc-e1384b13b2bf>
+  PrefabRemaps:
+    []
+  Name: Player
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 2793799c-29a1-43fb-bfd5-e488edf27bbe
+    - !<own> f9bae9e6-f8c4-4566-ab58-419ad551a03a
+  Components:
+    - !<own> d4cc76d4-d2aa-4f50-b101-333dd09cdd53
+- !<ScriptComponent/0ee7669e-ad81-4f98-9ac6-52995cd44cca>
+  PrefabRemaps:
+    []
+  Name: Animation State Manager
+  Enabled: true
+  ScriptAsset: !<reference> a36e70df-3e7b-4dee-9510-ee7bcb2ff77c
+  ScriptInputsDefault:
+    tempClip: true
+    advanced: true
+    tempInput: true
+    editAnimationStates: true
+    createStatesFromClips: true
+    showDebug: true
+    debugText: true
+    displayParameters: true
+    displayStates: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      tempClip:
+        clipName: ""
+        threshold: !<float> 0.000000
+      advanced: false
+      tempInput:
+        paramName: ""
+        type: Trigger
+        funcInt: Equal
+        funcFloat: IsLess
+        funcBool: IsLess
+        valueInt: 0
+        valueFloat: !<float> 0.000000
+      animationPlayer: !<reference.AnimationPlayer> 3d3d84a1-f97c-45fe-bf0f-4d49af57d20c
+      editAnimationStates: true
+      createStatesFromClips: false
+      states:
+        - stateName: RunBlendTree
+          source: 1
+          clipName: ""
+          blendTreeClips:
+            - clipName: LeftStrafe
+              threshold: 0.200000
+            - clipName: Run
+              threshold: 0.500000
+            - clipName: RightStrafe
+              threshold: 0.800000
+          normalizeClipDuration: true
+          blendParameterName: direction
+        - stateName: Jump
+          source: 0
+          clipName: Jump
+          blendTreeClips:
+            []
+          normalizeClipDuration: false
+          blendParameterName: ""
+      editParameters: true
+      parameters:
+        - paramName: direction
+          type: Float
+          valueInt: 0
+          valueFloat: !<float> 0.000000
+          valueBool: false
+          valueTrigger: false
+        - paramName: jump
+          type: Trigger
+          valueInt: 0
+          valueFloat: !<float> 0.000000
+          valueBool: false
+          valueTrigger: false
+      editTransitions: true
+      transitions:
+        - enabled: true
+          fromStateType: -1
+          fromStateName: ""
+          toStateType: 0
+          toStateName: RunBlendTree
+          duration: !<float> 0.000000
+          hasExitTime: false
+          exitTime: !<float> 1.000000
+          conditions:
+            - paramName: direction
+              type: Float
+              funcInt: Equal
+              funcFloat: IsLess
+              funcBool: IsLess
+              valueInt: 0
+              valueFloat: !<float> 1.000000
+        - enabled: true
+          fromStateType: 0
+          fromStateName: RunBlendTree
+          toStateType: 0
+          toStateName: Jump
+          duration: 0.200000
+          hasExitTime: false
+          exitTime: !<float> 1.000000
+          conditions:
+            - paramName: jump
+              type: Trigger
+              funcInt: Equal
+              funcFloat: IsLess
+              funcBool: IsLess
+              valueInt: 0
+              valueFloat: !<float> 0.000000
+        - enabled: true
+          fromStateType: 0
+          fromStateName: Jump
+          toStateType: 0
+          toStateName: RunBlendTree
+          duration: !<float> 0.000000
+          hasExitTime: true
+          exitTime: !<float> 1.000000
+          conditions:
+            []
+      showDebug: false
+      debugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      displayParameters: false
+      displayStates: false
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/2793799c-29a1-43fb-bfd5-e488edf27bbe>
+  PrefabRemaps:
+    []
+  Name: Animation State Manager
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 0ee7669e-ad81-4f98-9ac6-52995cd44cca
+- !<AnimationPlayer/3d3d84a1-f97c-45fe-bf0f-4d49af57d20c>
+  PrefabRemaps:
+    []
+  Name: Animation Player
+  Enabled: true
+  Autoplay: true
+  ClipRangeType: Frames
+  AnimationClips:
+    - !<AnimationClip>
+      AnimationAsset: !<reference> 1040ceef-8a18-4ab3-8ed7-93d0bad4760b
+      Name: Idle
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 300.000000
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+    - !<AnimationClip>
+      AnimationAsset: !<reference> 7fddd183-fd61-4a63-915b-4f27583d338c
+      Name: Run
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 17.000000
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+    - !<AnimationClip>
+      AnimationAsset: !<reference> 8c09ac75-4bcb-41d3-b661-82c15555522f
+      Name: Jump
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 26.000000
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+    - !<AnimationClip>
+      AnimationAsset: !<reference> bf46cd31-c8cb-4c86-8f10-0357c1ed88ff
+      Name: LeftStrafe
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 20.000000
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+    - !<AnimationClip>
+      AnimationAsset: !<reference> 551001a3-c0b3-4a9a-9d6f-71b84fef6144
+      Name: RightStrafe
+      Weight: 1.000000
+      PlaybackSpeed: 1.000000
+      Begin: 0.000000
+      End: 20.000000
+      Offset: 0.000000
+      Reversed: false
+      Disabled: false
+      BlendMode: Default
+      ScaleMode: Multiply
+      PlaybackMode: Loop
+- !<SceneObject/52ee1f6a-0421-48d2-afe3-f66a2d16c021>
+  PrefabRemaps:
+    []
+  Name: SwipeDetection
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 5b4cc983-d951-4bec-8820-cef2dd0acb24
+- !<ScriptComponent/5b4cc983-d951-4bec-8820-cef2dd0acb24>
+  PrefabRemaps:
+    []
+  Name: SwipeDetection
+  Enabled: true
+  ScriptAsset: !<reference> 3784c95e-c2d9-467a-838e-0bd1fccad5e6
+  ScriptInputsDefault:
+    swipeMinDistance: true
+    diagonalSwipes: true
+    showDebugMessage: true
+    left: true
+    right: true
+    up: true
+    down: true
+    leftAndUp: true
+    leftAndDown: true
+    rightAndUp: true
+    rightAndDown: true
+    leftAndUpFuncNames: true
+    leftAndDownFuncNames: true
+    rightAndUpFuncNames: true
+    rightAndDownFuncNames: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      swipeMinDistance: 0.500000
+      cardinalSwipes: true
+      diagonalSwipes: false
+      showDebugMessage: false
+      left: !<reference.ScriptComponent[]>
+        []
+      right: !<reference.ScriptComponent[]>
+        []
+      up: !<reference.ScriptComponent[]>
+        []
+      down: !<reference.ScriptComponent[]>
+        []
+      leftAndUp: !<reference.ScriptComponent[]>
+        []
+      leftAndDown: !<reference.ScriptComponent[]>
+        []
+      rightAndUp: !<reference.ScriptComponent[]>
+        []
+      rightAndDown: !<reference.ScriptComponent[]>
+        []
+      scriptWithApi: !<reference.ScriptComponent> d4cc76d4-d2aa-4f50-b101-333dd09cdd53
+      leftFuncNames: !<string[]>
+        - leftSwipe
+      rightFuncNames: !<string[]>
+        - rightSwipe
+      upFuncNames: !<string[]>
+        - upSwipe
+      downFuncNames: !<string[]>
+        - ""
+      leftAndUpFuncNames: !<string[]>
+        []
+      leftAndDownFuncNames: !<string[]>
+        []
+      rightAndUpFuncNames: !<string[]>
+        []
+      rightAndDownFuncNames: !<string[]>
+        []
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/8ca96c1d-fb05-4936-ab1b-335d1f301247>
+  PrefabRemaps:
+    []
+  Name: UI Control
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 52ee1f6a-0421-48d2-afe3-f66a2d16c021
+  Components:
+    []
+- !<ScriptComponent/d4cc76d4-d2aa-4f50-b101-333dd09cdd53>
+  PrefabRemaps:
+    []
+  Name: PlayerController
+  Enabled: true
+  ScriptAsset: !<reference> 77169d31-5de3-4d64-a6c3-cb9afed2292c
+  ScriptInputsDefault:
+    animationStateManager: true
+    playerObject: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      animationStateManager: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      playerObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    "":
+      {}
+- !<ScriptComponent/f1afa4a0-c808-4019-863f-85e2e27a5ad8>
+  PrefabRemaps:
+    []
+  Name: Bitmoji 3D
+  Enabled: true
+  ScriptAsset: !<reference> 7a3c78c1-4ff4-41a1-9f38-a2b9e6360f03
+  ScriptInputsDefault:
+    bitmojiType: true
+    friendsComponent: true
+    friendIndex: true
+    mixamoAnimation: true
+    autoDownload: true
+    renderOrder: true
+    castShadow: true
+    autoMention: true
+    materialHolder: true
+    printDebug: true
+    loaderPrefab: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      bitmojiType: !<float> 0.000000
+      friendsComponent: !<reference.Component> 00000000-0000-0000-0000-000000000000
+      friendIndex: 0
+      mixamoAnimation: true
+      autoDownload: true
+      renderOrder: 0
+      castShadow: true
+      autoMention: true
+      materialHolder: !<reference.Material> 40b3147b-e211-4919-9ba0-bedd05c60132
+      printDebug: false
+      loaderPrefab: !<reference.ObjectPrefab> 3642f110-de5e-4fcd-9cf9-bdd9164d8108
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/f9bae9e6-f8c4-4566-ab58-419ad551a03a>
+  PrefabRemaps:
+    []
+  Name: Bitmoji 3D
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> f1afa4a0-c808-4019-863f-85e2e27a5ad8
+    - !<own> 3d3d84a1-f97c-45fe-bf0f-4d49af57d20c

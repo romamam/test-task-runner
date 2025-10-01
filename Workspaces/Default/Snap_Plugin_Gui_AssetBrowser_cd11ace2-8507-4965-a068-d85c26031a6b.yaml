@@ -1,0 +1,16 @@
+CollapsedEntities:
+  type: stringset
+  value:
+    size: 10
+    values:
+      - Animation State Manager.lsc
+      - Animation State Manager.lsc/package.native
+      - Animations - Mixamo
+      - Bitmoji 3D.lsc
+      - Bitmoji 3D.lsc/package.native
+      - Echopark.hdr
+      - Scene.scene
+      - Scripts
+      - Swipe Detection/Swipe Detection.lspkg/package.native
+      - Texture
+  options: 4

@@ -43,5 +43,5 @@
     -
       {}
   InputLines:
-    - // @input Component.ScriptComponent animationStateManager
-    - // @input SceneObject playerObject
+    - '// @input Component.ScriptComponent animationStateManager {"hint":"Animation State Manager компонент для керування анімаціями"}'
+    - '// @input SceneObject playerObject {"hint":"SceneObject гравця для руху"}'

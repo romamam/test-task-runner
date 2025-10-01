@@ -1,10 +1,10 @@
-- !<ObjectPrefab/857f04b5-b534-4971-8f70-c0202dfafb7a>
+- !<ObjectPrefab/3d3d66ce-7d16-4d0c-8f4d-6a0f13adb640>
   PackagePath: ""
   objects:
-    - !<own> bf33c52a-3aa0-42ea-b1bc-2beaa55a26c6
+    - !<own> a3c58afb-4bc8-47b4-807c-0096f80e2213
   LazyLoading: false
   RetainAssets: true
-- !<SceneObject/bf33c52a-3aa0-42ea-b1bc-2beaa55a26c6>
+- !<SceneObject/a3c58afb-4bc8-47b4-807c-0096f80e2213>
   PrefabRemaps:
     []
   Name: Tile
@@ -18,8 +18,8 @@
   Children:
     []
   Components:
-    - !<own> f36415a1-1839-4ffb-96a3-7b8bd700a9fb
-- !<RenderMeshVisual/f36415a1-1839-4ffb-96a3-7b8bd700a9fb>
+    - !<own> a7136785-e823-4ea6-b7f8-e93b72b21248
+- !<RenderMeshVisual/a7136785-e823-4ea6-b7f8-e93b72b21248>
   PrefabRemaps:
     []
   Name: Render Mesh Visual
