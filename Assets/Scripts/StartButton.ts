@@ -35,8 +35,18 @@ export class StartButton extends BaseScriptComponent {
             return;
         }
         
+        if ((this.playerController as any).gameStart) {
+            print("StartButton: Game already started, ignoring tap");
+            return;
+        }
+        
         print("StartButton: Setting gameStart to true");
         (this.playerController as any).gameStart = true;
+        
+        if ((this.playerController as any).startGame) {
+            (this.playerController as any).startGame();
+            print("StartButton: startGame() method called");
+        }
         
         print("StartButton: Hiding button");
         this.getSceneObject().enabled = false;

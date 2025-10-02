@@ -5,6 +5,10 @@ export class TileManager extends BaseScriptComponent {
     @hint('Player object to track position')
     player: SceneObject = null;
     
+    @input('Component.ScriptComponent')
+    @hint('PlayerController component for game state')
+    playerController: ScriptComponent = null;
+    
     @input('Asset.ObjectPrefab')
     @hint('Regular tile prefab with obstacles')
     tilePrefab: ObjectPrefab = null;
@@ -25,11 +29,38 @@ export class TileManager extends BaseScriptComponent {
     private zSpawn: number = 0;
     private readonly resetDistance: number = 200;
     private firstTileSpawned: boolean = false;
+    private resetHit: boolean = false;
+    private firstGrounds: SceneObject[] = [];
     
     onAwake() {
         this.createEvent("UpdateEvent").bind(this.onUpdate.bind(this));
+        this.createEvent("OnStartEvent").bind(this.onStart.bind(this));
+        print("TileManager initialized");
+    }
+    
+    /**
+     * Initialize tile system on game start/restart
+     */
+    onStart(): void {
+        print("TileManager: onStart() called - resetting tile system");
+        
+        this.zSpawn = 0;
+        
+        for (let i = this.grounds.length - 1; i >= 0; i--) {
+            const tile = this.grounds[i];
+            if (tile) {
+                tile.destroy();
+            }
+        }
+        
+        this.grounds = [];
+        this.firstGrounds = [];
+        this.firstTileSpawned = false;
+        this.resetHit = false;
+        
         this.initializeTiles();
-        print("TileManager initialized with " + this.initialTileCount + " tiles");
+        
+        print("TileManager: Tile system reset and initialized");
     }
     
     /**
@@ -79,6 +110,12 @@ export class TileManager extends BaseScriptComponent {
      */
     private onUpdate(): void {
         if (!this.player) {
+            return;
+        }
+        
+        if (this.resetHit) {
+            print("TileManager: Reset detected, calling onStart()");
+            this.onStart();
             return;
         }
         

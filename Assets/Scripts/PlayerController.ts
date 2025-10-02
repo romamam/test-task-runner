@@ -36,6 +36,10 @@ export class PlayerController extends BaseScriptComponent {
     @hint('Text component to display lives count')
     livesText: SceneObject = null;
     
+    @input('Component.ScriptComponent')
+    @hint('TileManager component for tile system control')
+    tileManager: ScriptComponent = null;
+    
     // Змінна для контролю руху
     private changeDir: boolean = false;
     
@@ -157,6 +161,12 @@ export class PlayerController extends BaseScriptComponent {
             this.restartScreen.enabled = false;
         }
         
+        // Показуємо StartButton після рестарту
+        if (this.startScreen) {
+            this.startScreen.enabled = true;
+            print("PlayerController: StartScreen enabled after restart");
+        }
+        
         this.updateLivesText();
         
         if (this.livesText) {
@@ -201,6 +211,15 @@ export class PlayerController extends BaseScriptComponent {
             if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
                 (this.animationStateManager as any).setParameter("fall", true);
             }
+            
+            if (this.gameOverScreen) {
+                this.gameOverScreen.enabled = true;
+            }
+            
+            if (this.restartScreen) {
+                this.restartScreen.enabled = true;
+                print("PlayerController: RestartScreen enabled");
+            }
         } else {
             this.activateImmunity();
         }
@@ -232,6 +251,7 @@ export class PlayerController extends BaseScriptComponent {
             // Встановлюємо анімацію на run коли гра починається
             if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
                 (this.animationStateManager as any).setParameter("idle", false);
+                (this.animationStateManager as any).setParameter("run", true);
             }
             
             if (this.livesText) {
@@ -248,7 +268,30 @@ export class PlayerController extends BaseScriptComponent {
      */
     startGame(): void {
         this.gameStart = true;
+        
+        if (this.updateEvent) {
+            this.updateEvent.enabled = true;
+            print("PlayerController: UpdateEvent enabled");
+        }
+        
         print("Game started - player can now move");
+    }
+    
+    /**
+     * Restart the game - reset everything and start over
+     */
+    restartGame(): void {
+        print("Restarting game...");
+        
+        if (this.tileManager && (this.tileManager as any).resetHit !== undefined) {
+            (this.tileManager as any).resetHit = true;
+            print("TileManager reset signal sent");
+        }
+        
+        this.init();
+        
+        
+        print("Game restarted successfully - waiting for StartButton");
     }
     
     onStart() {
