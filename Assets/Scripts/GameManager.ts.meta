@@ -1,0 +1,65 @@
+- !<AssetImportMetadata/762dc790-7247-4ba2-8521-0feed792d107>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 762ccebe-5bc0-4ee0-9f1f-48dffd984f5e
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 762ccebe-5bc0-4ee0-9f1f-48dffd984f5e
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 67d0dd1a-4b14-47a2-8316-781dc11db83e
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/67d0dd1a-4b14-47a2-8316-781dc11db83e>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: e294b3c0-ac7f-4c8d-8542-f51432478c0b
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    gameOverScreen: false
+    livesText: false
+    playerController: false
+    restartScreen: false
+    scoreText: false
+    startScreen: false
+    tileManager: false
+    winnerScreen: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - startScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      gameOverScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      winnerScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      restartScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      livesText: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      scoreText: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      playerController: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      tileManager: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject startScreen {"hint":"Start screen UI"}'
+    - '// @input SceneObject gameOverScreen {"hint":"Game over screen UI"}'
+    - '// @input SceneObject winnerScreen {"hint":"Winner screen UI"}'
+    - '// @input SceneObject restartScreen {"hint":"Restart screen UI"}'
+    - '// @input SceneObject livesText {"hint":"Text component to display lives count"}'
+    - '// @input SceneObject scoreText {"hint":"Text component to display score"}'
+    - '// @input Component.ScriptComponent playerController {"hint":"PlayerController component"}'
+    - '// @input Component.ScriptComponent tileManager {"hint":"TileManager component for tile system control"}'

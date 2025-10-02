@@ -1,22 +1,22 @@
 /**
  * RestartButton.ts
  * Script for handling the restart button functionality
- * Processes Restart Screen tap and restarts the game
+ * Processes Restart Screen tap and restarts the game through GameManager
  */
 @component
 export class RestartButton extends BaseScriptComponent {
     
     @input('Component.ScriptComponent')
-    @hint('PlayerController component for game control')
-    playerController: ScriptComponent = null;
+    @hint('GameManager component for game control')
+    gameManager: ScriptComponent = null;
     
     onAwake() {
         print("RestartButton: onAwake() called");
         
-        if (this.playerController) {
-            print("RestartButton: playerController found");
+        if (this.gameManager) {
+            print("RestartButton: gameManager found");
         } else {
-            print("RestartButton: ERROR - playerController not assigned!");
+            print("RestartButton: ERROR - gameManager not assigned!");
         }
         
         this.createEvent("TapEvent").bind(this.onTap.bind(this));
@@ -28,20 +28,20 @@ export class RestartButton extends BaseScriptComponent {
      */
     onTap(): void {
         print("RestartButton: onTap() called - TAP DETECTED!");
-        if (!this.playerController) {
-            print("ERROR: playerController not assigned!");
+        if (!this.gameManager) {
+            print("ERROR: gameManager not assigned!");
             return;
         }
         
-        if ((this.playerController as any).lives > 0) {
+        if ((this.gameManager as any).isGameRunning) {
             print("RestartButton: Game still running, ignoring tap");
             return;
         }
         
-        if ((this.playerController as any).restartGame) {
-            (this.playerController as any).restartGame();
+        if ((this.gameManager as any).restartGame) {
+            (this.gameManager as any).restartGame();
         } else {
-            print("ERROR: restartGame method not found in PlayerController");
+            print("ERROR: restartGame method not found in GameManager");
         }
         
         this.getSceneObject().enabled = false;

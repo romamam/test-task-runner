@@ -26,7 +26,7 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    playerController: false
+    gameManager: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -36,9 +36,9 @@
   Attachments:
     []
   DefaultScriptInputs:
-    - playerController: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+    - gameManager: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
-    - '// @input Component.ScriptComponent playerController {"hint":"PlayerController component for game control"}'
+    - '// @input Component.ScriptComponent gameManager {"hint":"GameManager component for game control"}'

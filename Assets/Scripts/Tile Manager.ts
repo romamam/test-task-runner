@@ -64,6 +64,14 @@ export class TileManager extends BaseScriptComponent {
     }
     
     /**
+     * Public method to reset tiles (called by GameManager)
+     */
+    resetTiles(): void {
+        print("TileManager: resetTiles() called directly");
+        this.onStart();
+    }
+    
+    /**
      * Initialize initial tiles
      */
     private initializeTiles(): void {
@@ -116,6 +124,7 @@ export class TileManager extends BaseScriptComponent {
         if (this.resetHit) {
             print("TileManager: Reset detected, calling onStart()");
             this.onStart();
+            this.resetHit = false; // Скидаємо прапор після обробки
             return;
         }
         

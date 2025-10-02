@@ -20,29 +20,13 @@ export class PlayerController extends BaseScriptComponent {
     @hint('Collider component for collision detection')
     collider: any = null;
     
-    @input("SceneObject")
-    startScreen: SceneObject = null;
-    
-    @input("SceneObject")
-    gameOverScreen: SceneObject = null;
-    
-    @input("SceneObject")
-    winnerScreen: SceneObject = null;
-    
-    @input("SceneObject")
-    restartScreen: SceneObject = null;
-    
-    @input("SceneObject")
-    @hint('Text component to display lives count')
-    livesText: SceneObject = null;
-    
-    @input("SceneObject")
-    @hint('Text component to display score')
-    scoreText: SceneObject = null;
-    
     @input('Component.ScriptComponent')
     @hint('TileManager component for tile system control')
     tileManager: ScriptComponent = null;
+    
+    @input('Component.ScriptComponent')
+    @hint('GameManager component for game state management')
+    gameManager: ScriptComponent = null;
     
     // Змінна для контролю руху
     private changeDir: boolean = false;
@@ -72,61 +56,6 @@ export class PlayerController extends BaseScriptComponent {
     // Змінна для контролю початку гри
     public gameStart: boolean = false;
     
-    // Система життів
-    private lives: number = 3; // Початкова кількість життів
-    private isImmune: boolean = false; // Чи є імунітет
-    private immunityDuration: number = 2.0; // Тривалість імунітету в секундах
-    private immunityStartTime: number = 0; // Час початку імунітету
-    private blinkSpeed: number = 10.0; // Швидкість миготіння
-    
-    private score: number = 0; // Поточні метри
-    private baseSpeed: number = 50; // Базова швидкість
-    private speedMultiplier: number = 2.0; // Множник швидкості
-    private speedIncreaseInterval: number = 15; // Кожні 100 метрів збільшуємо швидкість
-    
-    // Система штрафу за колізії
-    private speedPenaltyActive: boolean = false; // Чи активний штраф за швидкість
-    private speedPenaltyStartTime: number = 0; // Час початку штрафу
-    private speedPenaltyDuration: number = 2.0; // Тривалість штрафу в секундах
-    private speedPenaltyMultiplier: number = 0.5; // Наскільки зменшується швидкість (50%)
-    
-    /**
-     * Функція оновлення тексту життів
-     */
-    private updateLivesText(): void {
-        if (this.livesText) {
-            const textComponent = this.livesText.getComponent("Component.Text");
-            if (textComponent && textComponent.text !== undefined) {
-                textComponent.text = "Lives: " + this.lives;
-            }
-        }
-    }
-    
-    /**
-     * Функція оновлення тексту очок (метри)
-     */
-    private updateScoreText(): void {
-        if (this.scoreText) {
-            const textComponent = this.scoreText.getComponent("Component.Text");
-            if (textComponent && textComponent.text !== undefined) {
-                textComponent.text = "Score: " + Math.floor(this.score) + "m";
-            }
-        }
-    }
-    
-    /**
-     * Додавання метрів та перевірка пришвидшення
-     */
-    private addScore(points: number): void {
-        this.score += points;
-        this.updateScoreText();
-        
-        const newMultiplier = 1.0 + Math.floor(this.score / this.speedIncreaseInterval) * 0.1;
-        if (newMultiplier > this.speedMultiplier) {
-            this.speedMultiplier = newMultiplier;
-        }
-    }
-    
     onAwake() {
         this.updateEvent = this.createEvent("UpdateEvent");
         this.updateEvent.bind(this.onUpdate.bind(this));
@@ -145,6 +74,8 @@ export class PlayerController extends BaseScriptComponent {
      * Ініціалізація та скидання всіх змінних гри
      */
     init(): void {
+        console.log("PlayerController: Initializing");
+        
         this.changeDir = false;
         this.currentDir = 0;
         this.targetDir = 0;
@@ -155,16 +86,6 @@ export class PlayerController extends BaseScriptComponent {
         this.jumpStartTime = 0;
         
         this.gameStart = false;
-        
-        this.lives = 3;
-        this.isImmune = false;
-        this.immunityStartTime = 0;
-        
-        this.score = 0;
-        this.speedMultiplier = 1.0;
-        
-        this.speedPenaltyActive = false;
-        this.speedPenaltyStartTime = 0;
         
         if (this.collider) {
             this.collider.enabled = true;
@@ -189,41 +110,22 @@ export class PlayerController extends BaseScriptComponent {
             (this.animationStateManager as any).setParameter("direction", 0.5);
         }
         
-        if (this.startScreen) {
-            this.startScreen.enabled = true;
-        }
-        if (this.gameOverScreen) {
-            this.gameOverScreen.enabled = false;
-        }
-        if (this.winnerScreen) {
-            this.winnerScreen.enabled = false;
-        }
-        if (this.restartScreen) {
-            this.restartScreen.enabled = false;
-        }
-        
-        // Показуємо StartButton після рестарту
-        if (this.startScreen) {
-            this.startScreen.enabled = true;
-        }
-        
-        this.updateLivesText();
-        
-        this.updateScoreText();
-        
-        if (this.livesText) {
-            this.livesText.enabled = true;
-        }
-        
+        console.log("PlayerController: Initialization complete");
     }
     
     /**
      * Обробка колізії з перешкодою
      */
     private handleCollision(collisionInfo: any): void {
-        if (this.isImmune) {
+        console.log("PlayerController: handleCollision called");
+        
+        // Перевіряємо імунітет через GameManager
+        if (this.gameManager && (this.gameManager as any).isPlayerImmune) {
+            console.log("PlayerController: Player is immune, ignoring collision");
             return;
         }
+        
+        console.log("PlayerController: Player is not immune, processing collision");
         
         const collidedObject = this.getCollisionObject(collisionInfo);
         
@@ -276,8 +178,10 @@ export class PlayerController extends BaseScriptComponent {
      * Обробка колізії з тортом
      */
     private handleCakeCollection(sceneObject: SceneObject): void {
-        // Додаємо бали
-        this.addScore(10);
+        // Повідомляємо GameManager про збір торта
+        if (this.gameManager && (this.gameManager as any).handleCakeCollection) {
+            (this.gameManager as any).handleCakeCollection();
+        }
         
         // Видаляємо торт зі сцени
         if (sceneObject) {
@@ -293,94 +197,30 @@ export class PlayerController extends BaseScriptComponent {
      * Обробка колізії з перешкодою
      */
     private handleObstacleCollision(): void {
-        this.lives--;
-        
-        if (this.lives < 0) {
-            this.lives = 0;
-        }
-        
-        this.updateLivesText();
-        
-        if (this.lives <= 0) {
-            if (this.updateEvent) {
-                this.updateEvent.enabled = false;
-            }
-            
-            if (this.playerObject) {
-                const currentPos = this.playerObject.getTransform().getLocalPosition();
-                currentPos.y = 0;
-                this.playerObject.getTransform().setLocalPosition(currentPos);
-            }
-            
-            if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
-                (this.animationStateManager as any).setParameter("fall", true);
-            }
-            
-            if (this.gameOverScreen) {
-                this.gameOverScreen.enabled = true;
-            }
-            
-            if (this.restartScreen) {
-                this.restartScreen.enabled = true;
-            }
-        } else {
-            this.activateImmunity();
-            this.activateSpeedPenalty();
-        }
-    }
-    /**
-     * Активація імунітету після колізії
-     */
-    private activateImmunity(): void {
-        this.isImmune = true;
-        this.immunityStartTime = getTime();
-        
-        if (this.collider) {
-            this.collider.enabled = false;
+        // Повідомляємо GameManager про колізію з перешкодою
+        if (this.gameManager && (this.gameManager as any).handleObstacleCollision) {
+            (this.gameManager as any).handleObstacleCollision();
         }
     }
     
     /**
-     * Активація штрафу за швидкість після колізії
+     * Зупинка гри
      */
-    private activateSpeedPenalty(): void {
-        this.speedPenaltyActive = true;
-        this.speedPenaltyStartTime = getTime();
-    }
-    
-    /**
-     * Оновлення штрафу за швидкість
-     */
-    private updateSpeedPenalty(): void {
-        if (!this.speedPenaltyActive) {
-            return;
+    stopGame(): void {
+        if (this.updateEvent) {
+            this.updateEvent.enabled = false;
         }
         
-        const elapsedTime = getTime() - this.speedPenaltyStartTime;
-        
-        if (elapsedTime >= this.speedPenaltyDuration) {
-            this.speedPenaltyActive = false;
-        }
-    }
-    
-    /**
-     * Розрахунок поточної швидкості з урахуванням штрафу
-     */
-    private getCurrentSpeed(): number {
-        let speed = this.baseSpeed * this.speedMultiplier;
-        
-        if (this.speedPenaltyActive) {
-            const elapsedTime = getTime() - this.speedPenaltyStartTime;
-            const penaltyProgress = Math.min(elapsedTime / this.speedPenaltyDuration, 1.0);
-            
-            // Поступове відновлення швидкості (від 50% до 100%)
-            const penaltyMultiplier = this.speedPenaltyMultiplier + (1.0 - this.speedPenaltyMultiplier) * penaltyProgress;
-            speed *= penaltyMultiplier;
+        if (this.playerObject) {
+            const currentPos = this.playerObject.getTransform().getLocalPosition();
+            currentPos.y = 0;
+            this.playerObject.getTransform().setLocalPosition(currentPos);
         }
         
-        return speed;
+        if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
+            (this.animationStateManager as any).setParameter("fall", true);
+        }
     }
-    
     /**
      * Перевіряє, чи може гра початися
      * @returns true якщо гра готова до початку, false якщо ні
@@ -393,10 +233,6 @@ export class PlayerController extends BaseScriptComponent {
                 (this.animationStateManager as any).setParameter("run", true);
                 
                 (this.animationStateManager as any).setParameter("direction", 0.5);
-            }
-            
-            if (this.livesText) {
-                this.livesText.enabled = true;
             }
             
             return true;
@@ -413,17 +249,6 @@ export class PlayerController extends BaseScriptComponent {
         if (this.updateEvent) {
             this.updateEvent.enabled = true;
         }
-    }
-    
-    /**
-     * Restart the game - reset everything and start over
-     */
-    restartGame(): void {
-        if (this.tileManager && (this.tileManager as any).resetHit !== undefined) {
-            (this.tileManager as any).resetHit = true;
-        }
-        
-        this.init();
     }
     
     /**
@@ -489,14 +314,14 @@ export class PlayerController extends BaseScriptComponent {
      */
     private onUpdate(): void {
 
-        const currentSpeed = this.getCurrentSpeed();
+        const currentSpeed = this.gameManager && (this.gameManager as any).getCurrentSpeed ? 
+            (this.gameManager as any).getCurrentSpeed() : 50;
         
         if (!this.canGameStart()) {
             return;
         }
         
         this.updateImmunity();
-        this.updateSpeedPenalty(); // Оновлюємо штраф за швидкість
         
         if (this.changeDir && this.playerObject) {
             // Оновлюємо поточну позицію з Transform
@@ -544,17 +369,27 @@ export class PlayerController extends BaseScriptComponent {
                 this.targetPosition.y = Math.sin(jumpProgress * Math.PI) * this.jumpHeight;
                 
                 const deltaTime = getDeltaTime();
-                const currentSpeed = this.getCurrentSpeed();
+                const currentSpeed = this.gameManager && (this.gameManager as any).getCurrentSpeed ? 
+                    (this.gameManager as any).getCurrentSpeed() : 50;
                 this.currentPosition.z -= (currentSpeed + 2) * deltaTime;
                 
-                this.addScore(deltaTime * 2.5 * this.speedMultiplier);
+                if (this.gameManager && (this.gameManager as any).addScore) {
+                    const speedMultiplier = this.gameManager && (this.gameManager as any).speedMultiplier ? 
+                        (this.gameManager as any).speedMultiplier : 1.0;
+                    (this.gameManager as any).addScore(deltaTime * 2.5 * speedMultiplier);
+                }
             }
         } else {
             const deltaTime = getDeltaTime();
-            const currentSpeed = this.getCurrentSpeed();
+            const currentSpeed = this.gameManager && (this.gameManager as any).getCurrentSpeed ? 
+                (this.gameManager as any).getCurrentSpeed() : 50;
             this.currentPosition.z -= currentSpeed * deltaTime;
             
-            this.addScore(deltaTime * 2 * this.speedMultiplier);
+            if (this.gameManager && (this.gameManager as any).addScore) {
+                const speedMultiplier = this.gameManager && (this.gameManager as any).speedMultiplier ? 
+                    (this.gameManager as any).speedMultiplier : 1.0;
+                (this.gameManager as any).addScore(deltaTime * 2 * speedMultiplier);
+            }
         }
         
         this.targetPosition.z = this.currentPosition.z;
@@ -593,23 +428,31 @@ export class PlayerController extends BaseScriptComponent {
      * Оновлення імунітету та миготіння
      */
     private updateImmunity(): void {
-        if (this.isImmune) {
-            const elapsedTime = getTime() - this.immunityStartTime;
+        if (this.gameManager) {
+            const isImmune = (this.gameManager as any).isPlayerImmune;
+            const immunityElapsedTime = (this.gameManager as any).immunityElapsedTime;
+            const immunityDuration = 2.0; // Тривалість імунітету
+            const blinkSpeed = 10.0; // Швидкість миготіння
             
-            if (elapsedTime >= this.immunityDuration) {
-                this.isImmune = false;
+            if (isImmune) {
+                console.log("PlayerController: Player is immune, collider disabled, blinking");
+                if (this.playerObject) {
+                    const blinkValue = Math.sin(immunityElapsedTime * blinkSpeed);
+                    this.playerObject.enabled = blinkValue > 0;
+                }
                 
+                if (this.collider) {
+                    this.collider.enabled = false;
+                }
+            } else {
+                // Імунітет закінчився - повертаємо все в норму
+                console.log("PlayerController: Immunity ended, restoring collider and player visibility");
                 if (this.playerObject) {
                     this.playerObject.enabled = true;
                 }
                 
                 if (this.collider) {
                     this.collider.enabled = true;
-                }
-            } else {
-                if (this.playerObject) {
-                    const blinkValue = Math.sin(elapsedTime * this.blinkSpeed);
-                    this.playerObject.enabled = blinkValue > 0;
                 }
             }
         }

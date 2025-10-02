@@ -1,27 +1,26 @@
 /**
  * StartButton.ts
  * Script for handling the start button functionality
- * Processes Start Screen tap and launches the game
+ * Processes Start Screen tap and launches the game through GameManager
  */
 @component
 export class StartButton extends BaseScriptComponent {
     
     @input('Component.ScriptComponent')
-    @hint('PlayerController component for game control')
-    playerController: ScriptComponent = null;
+    @hint('GameManager component for game control')
+    gameManager: ScriptComponent = null;
     
     onAwake() {
         print("StartButton: onAwake() called");
         
-        if (this.playerController) {
-            (this.playerController as any).gameStart = false;
-            print("StartButton: playerController found and gameStart set to false");
+        if (this.gameManager) {
+            print("StartButton: gameManager found");
         } else {
-            print("StartButton: ERROR - playerController not assigned!");
+            print("StartButton: ERROR - gameManager not assigned!");
         }
         
         this.createEvent("TapEvent").bind(this.onTap.bind(this)); 
-        print("StartButton: TapEvent and UpdateEvent created and bound");
+        print("StartButton: TapEvent created and bound");
     }
     
     /**
@@ -30,21 +29,20 @@ export class StartButton extends BaseScriptComponent {
     onTap(): void {
         print("StartButton: onTap() called - TAP DETECTED!");
         
-        if (!this.playerController) {
-            print("StartButton: ERROR - playerController not assigned!");
+        if (!this.gameManager) {
+            print("StartButton: ERROR - gameManager not assigned!");
             return;
         }
         
-        if ((this.playerController as any).gameStart) {
+        if ((this.gameManager as any).isGameStarted) {
             print("StartButton: Game already started, ignoring tap");
             return;
         }
         
-        print("StartButton: Setting gameStart to true");
-        (this.playerController as any).gameStart = true;
+        print("StartButton: Starting game through GameManager");
         
-        if ((this.playerController as any).startGame) {
-            (this.playerController as any).startGame();
+        if ((this.gameManager as any).startGame) {
+            (this.gameManager as any).startGame();
             print("StartButton: startGame() method called");
         }
         
