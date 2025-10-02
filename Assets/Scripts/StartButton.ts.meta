@@ -1,0 +1,44 @@
+- !<AssetImportMetadata/775f9113-63a6-4df0-ab39-69d24357f513>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> dcbf0aef-856f-45be-91de-2f2cb9671a98
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> dcbf0aef-856f-45be-91de-2f2cb9671a98
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 5aa46467-f232-4cfe-b767-9d1ea2e9e6dd
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/5aa46467-f232-4cfe-b767-9d1ea2e9e6dd>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 548011b0-43ea-4772-95ef-b91643256524
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    playerController: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - playerController: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Component.ScriptComponent playerController {"hint":"PlayerController component for game control"}'

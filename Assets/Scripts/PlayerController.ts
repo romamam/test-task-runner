@@ -20,6 +20,18 @@ export class PlayerController extends BaseScriptComponent {
     @hint('Collider component for collision detection')
     collider: any = null;
     
+    @input("SceneObject")
+    startScreen: SceneObject = null;
+    
+    @input("SceneObject")
+    gameOverScreen: SceneObject = null;
+    
+    @input("SceneObject")
+    winnerScreen: SceneObject = null;
+    
+    @input("SceneObject")
+    restartScreen: SceneObject = null;
+    
     // Змінна для контролю руху
     private changeDir: boolean = false;
     
@@ -48,10 +60,20 @@ export class PlayerController extends BaseScriptComponent {
     // Змінна для зберігання посилання на Update подію
     private updateEvent: any = null;
     
+    // Змінні для скидання в init()
+    private slide: boolean = false;
+    
+    // Змінна для контролю початку гри
+    public gameStart: boolean = false;
+    
     onAwake() {
         
         this.updateEvent = this.createEvent("UpdateEvent");
         this.updateEvent.bind(this.onUpdate.bind(this));
+        
+        // Створення Start події для автоматичного виклику init() як у туторіалі
+        const startEvent = this.createEvent("OnStartEvent");
+        startEvent.bind(this.init.bind(this));
         
         
         if (this.collider) {
@@ -70,7 +92,6 @@ export class PlayerController extends BaseScriptComponent {
                     this.playerObject.getTransform().setLocalPosition(currentPos);
                 }
                 
-                // Запуск анімації падіння
                 if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
                     (this.animationStateManager as any).setParameter("fall", true);
                 }
@@ -78,12 +99,77 @@ export class PlayerController extends BaseScriptComponent {
         }
     }
     
-    onStart() {
-        // Ініціалізація початкових позицій
+    /**
+     * Ініціалізація та скидання всіх змінних гри
+     */
+    init(): void {
+        print("PlayerController: init() called via OnStartEvent");
+        
+        this.changeDir = false;
+        this.currentDir = 0;
+        this.targetDir = 0;
+        this.currentMoveTime = 0;
+        this.step = 0;
+        
+        this.jump = false;
+        this.slide = false;
+        this.jumpStartTime = 0;
+        
+        this.gameStart = false;
+        
+        this.currentPosition = vec3.zero();
+        this.targetPosition = vec3.zero();
+        
         if (this.playerObject) {
-            this.currentPosition = this.playerObject.getTransform().getLocalPosition();
-            this.targetPosition = this.currentPosition;
+            this.playerObject.getTransform().setLocalPosition(vec3.zero());
         }
+        
+        if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
+            (this.animationStateManager as any).setParameter("fall", false);
+            (this.animationStateManager as any).setParameter("idle", true);
+        }
+        
+        if (this.startScreen) {
+            this.startScreen.enabled = true;
+        }
+        if (this.gameOverScreen) {
+            this.gameOverScreen.enabled = false;
+        }
+        if (this.winnerScreen) {
+            this.winnerScreen.enabled = false;
+        }
+        if (this.restartScreen) {
+            this.restartScreen.enabled = false;
+        }
+        
+    }
+    
+    /**
+     * Перевіряє, чи може гра початися
+     * @returns true якщо гра готова до початку, false якщо ні
+     */
+    canGameStart(): boolean {
+        if (this.gameStart) {
+            print("PlayerController: canGameStart() - gameStart is true, setting animation to run");
+            // Встановлюємо анімацію на run коли гра починається
+            if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
+                (this.animationStateManager as any).setParameter("idle", false);
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Start the game and set animation to run
+     */
+    startGame(): void {
+        this.gameStart = true;
+        print("Game started - player can now move");
+    }
+    
+    onStart() {
+        // Ініціалізація тепер відбувається в init() функції
     }
     
     /**
@@ -184,6 +270,10 @@ export class PlayerController extends BaseScriptComponent {
      * Update функція для безперервного руху та керування анімаціями
      */
     private onUpdate(): void {
+        if (!this.canGameStart()) {
+            return;
+        }
+        
         if (this.changeDir && this.playerObject) {
             // Оновлюємо поточну позицію з Transform
             this.currentPosition = this.playerObject.getTransform().getLocalPosition();

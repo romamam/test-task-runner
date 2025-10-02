@@ -28,7 +28,11 @@
   ScriptInputsHidden:
     animationStateManager: false
     collider: false
+    gameOverScreen: false
     playerObject: false
+    restartScreen: false
+    startScreen: false
+    winnerScreen: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -41,6 +45,10 @@
     - animationStateManager: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       playerObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       collider: !<reference.ColliderComponent> 00000000-0000-0000-0000-000000000000
+      startScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      gameOverScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      winnerScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      restartScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -48,3 +56,7 @@
     - '// @input Component.ScriptComponent animationStateManager {"hint":"Animation State Manager компонент для керування анімаціями"}'
     - '// @input SceneObject playerObject {"hint":"SceneObject гравця для руху"}'
     - '// @input Physics.ColliderComponent collider {"hint":"Collider component for collision detection"}'
+    - // @input SceneObject startScreen
+    - // @input SceneObject gameOverScreen
+    - // @input SceneObject winnerScreen
+    - // @input SceneObject restartScreen
