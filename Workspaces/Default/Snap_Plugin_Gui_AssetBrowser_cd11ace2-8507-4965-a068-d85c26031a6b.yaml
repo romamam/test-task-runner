@@ -1,19 +1,57 @@
 CollapsedEntities:
   type: stringset
   value:
-    size: 67
+    size: 120
     values:
-      - Animation State Manager.lsc
-      - Animation State Manager.lsc/package.native
       - Animations - Mixamo
-      - Bitmoji 3D.lsc
-      - Bitmoji 3D.lsc/package.native
+      - Animations - Mixamo/Fall.fbx/Animations/Layer0
+      - Animations - Mixamo/Fall.fbx/Fall
+      - Animations - Mixamo/Idle.fbx
+      - Animations - Mixamo/Jump.fbx
+      - Animations - Mixamo/LeftStrafe.fbx
+      - Animations - Mixamo/RightStrafe.fbx
+      - Animations - Mixamo/Run.fbx
+      - Base.png
       - Bitmoji Joint Attachment.lsc
       - Echopark.hdr
       - Materials
       - Materials/Obstacle_Material.mat
       - Materials/Tile_Material.mat
       - Meshes
+      - Models
+      - Models/Cake_fbx
+      - Models/Cake_fbx/.hidden
+      - Models/Cake_fbx/.hidden/Beige.ss_graph
+      - Models/Cake_fbx/.hidden/white.jpg
+      - Models/Cake_fbx/Cake_fbx.prefab
+      - Models/Cake_fbx/Materials
+      - Models/Cake_fbx/Materials/Beige.mat
+      - Models/Cake_fbx/Materials/Berry.mat
+      - Models/Cake_fbx/Materials/Cake.mat
+      - Models/Cake_fbx/Materials/Fruit_coulis.mat
+      - Models/Cake_fbx/Materials/Green.mat
+      - Models/Cake_fbx/Materials/Strawberry.mat
+      - Models/Cake_fbx/Meshes/Berry_1.mesh
+      - Models/Cake_fbx/Meshes/Berry_11.mesh
+      - Models/Cake_fbx/Meshes/Berry_2.mesh
+      - Models/Cake_fbx/Meshes/Berry_21.mesh
+      - Models/Cake_fbx/Meshes/Berry_3.mesh
+      - Models/Cake_fbx/Meshes/Berry_31.mesh
+      - Models/Cake_fbx/Meshes/Berry_4.mesh
+      - Models/Cake_fbx/Meshes/Berry_41.mesh
+      - Models/Cake_fbx/Meshes/Berry_5.mesh
+      - Models/Cake_fbx/Meshes/Berry_51.mesh
+      - Models/Cake_fbx/Meshes/Berry_6.mesh
+      - Models/Cake_fbx/Meshes/Berry_61.mesh
+      - Models/Cake_fbx/Meshes/Cake.mesh
+      - Models/Cake_fbx/Meshes/Cake1.mesh
+      - Models/Cake_fbx/Meshes/Fruit_coulis.mesh
+      - Models/Cake_fbx/Meshes/ImageMaterial.mat
+      - Models/Cake_fbx/Meshes/Strawberry_1.mesh
+      - Models/Cake_fbx/Meshes/Strawberry_2.mesh
+      - Models/Cake_fbx/Meshes/Strawberry_3.mesh
+      - Prefabs
+      - Prefabs/Cake.prefab
       - Prefabs/ObstacleTile.prefab
       - Prefabs/Obstacles/High_Obstacle
       - Prefabs/Obstacles/High_Obstacle/.hidden
@@ -37,6 +75,7 @@ CollapsedEntities:
       - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.006.mesh
       - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.007.mesh
       - Prefabs/Obstacles/Prefabs/High_Obstacle.prefab
+      - Prefabs/Obstacles/Prefabs/Medium_onstacle.prefab
       - Prefabs/Obstacles/Prefabs/Short_obstacle.prefab
       - Prefabs/Obstacles/Prefabs/Short_obstacle2.prefab
       - Prefabs/Obstacles/Short_Obstacle
@@ -61,13 +100,27 @@ CollapsedEntities:
       - Prefabs/Obstacles/Short_Obstacle/Short_Obstacle.prefab
       - Prefabs/Tile.prefab
       - Scene.scene
-      - Scripts
-      - Scripts/ObstacleInstantiator.ts
+      - Scripts/Instantiator
+      - Scripts/Instantiator/ObstacleInstantiator.ts
+      - Scripts/Instantiator/PickUpInstantiator.ts
+      - Scripts/Manager
+      - Scripts/Manager/GameManager.ts
+      - Scripts/Manager/Tile Manager.ts
       - Scripts/PlayerController.ts
-      - Scripts/Tile Manager.ts
+      - Scripts/Screen Button
+      - Scripts/Screen Button/RestartButton.ts
+      - Scripts/Screen Button/StartButton.ts
       - Shaders
       - Shaders/Obstacle_Shader.ss_graph
       - Swipe Detection
       - Swipe Detection/Swipe Detection.lspkg/package.native
       - Texture
+      - Utility
+      - Utility/Animation State Manager.lsc
+      - Utility/Animation State Manager.lsc/package.native
+      - Utility/Bitmoji 3D.lsc
+      - Utility/Bitmoji 3D.lsc/package.native
+      - Utility/Fonts
+      - Utility/Fonts/Alan_Sans/AlanSans-Bold.ttf
+      - simple_pbr.ss_graph
   options: 4
