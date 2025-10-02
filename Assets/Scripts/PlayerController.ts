@@ -36,6 +36,10 @@ export class PlayerController extends BaseScriptComponent {
     @hint('Text component to display lives count')
     livesText: SceneObject = null;
     
+    @input("SceneObject")
+    @hint('Text component to display score')
+    scoreText: SceneObject = null;
+    
     @input('Component.ScriptComponent')
     @hint('TileManager component for tile system control')
     tileManager: ScriptComponent = null;
@@ -81,6 +85,17 @@ export class PlayerController extends BaseScriptComponent {
     private immunityStartTime: number = 0; // Час початку імунітету
     private blinkSpeed: number = 10.0; // Швидкість миготіння
     
+    private score: number = 0; // Поточні метри
+    private baseSpeed: number = 50; // Базова швидкість
+    private speedMultiplier: number = 2.0; // Множник швидкості
+    private speedIncreaseInterval: number = 15; // Кожні 100 метрів збільшуємо швидкість
+    
+    // Система штрафу за колізії
+    private speedPenaltyActive: boolean = false; // Чи активний штраф за швидкість
+    private speedPenaltyStartTime: number = 0; // Час початку штрафу
+    private speedPenaltyDuration: number = 2.0; // Тривалість штрафу в секундах
+    private speedPenaltyMultiplier: number = 0.5; // Наскільки зменшується швидкість (50%)
+    
     /**
      * Функція оновлення тексту життів
      */
@@ -90,6 +105,32 @@ export class PlayerController extends BaseScriptComponent {
             if (textComponent && textComponent.text !== undefined) {
                 textComponent.text = "Lives: " + this.lives;
             }
+        }
+    }
+    
+    /**
+     * Функція оновлення тексту очок (метри)
+     */
+    private updateScoreText(): void {
+        if (this.scoreText) {
+            const textComponent = this.scoreText.getComponent("Component.Text");
+            if (textComponent && textComponent.text !== undefined) {
+                textComponent.text = "Score: " + Math.floor(this.score) + "m";
+            }
+        }
+    }
+    
+    /**
+     * Додавання метрів та перевірка пришвидшення
+     */
+    private addScore(points: number): void {
+        this.score += points;
+        this.updateScoreText();
+        
+        const newMultiplier = 1.0 + Math.floor(this.score / this.speedIncreaseInterval) * 0.1;
+        if (newMultiplier > this.speedMultiplier) {
+            this.speedMultiplier = newMultiplier;
+            print("Speed increased! Score: " + Math.floor(this.score) + "m, New Multiplier: " + this.speedMultiplier);
         }
     }
     
@@ -132,6 +173,13 @@ export class PlayerController extends BaseScriptComponent {
         this.isImmune = false;
         this.immunityStartTime = 0;
         
+        this.score = 0;
+        this.speedMultiplier = 1.0;
+        
+        // Скидаємо штраф за швидкість
+        this.speedPenaltyActive = false;
+        this.speedPenaltyStartTime = 0;
+        
         if (this.collider) {
             this.collider.enabled = true;
         }
@@ -168,6 +216,8 @@ export class PlayerController extends BaseScriptComponent {
         }
         
         this.updateLivesText();
+        
+        this.updateScoreText();
         
         if (this.livesText) {
             this.livesText.enabled = true;
@@ -222,6 +272,7 @@ export class PlayerController extends BaseScriptComponent {
             }
         } else {
             this.activateImmunity();
+            this.activateSpeedPenalty(); // Додаємо штраф за швидкість
         }
     }
     
@@ -239,6 +290,51 @@ export class PlayerController extends BaseScriptComponent {
         }
         
         print("Immunity activated for " + this.immunityDuration + " seconds");
+    }
+    
+    /**
+     * Активація штрафу за швидкість після колізії
+     */
+    private activateSpeedPenalty(): void {
+        this.speedPenaltyActive = true;
+        this.speedPenaltyStartTime = getTime();
+        print("Speed penalty activated for " + this.speedPenaltyDuration + " seconds");
+    }
+    
+    /**
+     * Оновлення штрафу за швидкість
+     */
+    private updateSpeedPenalty(): void {
+        if (!this.speedPenaltyActive) {
+            return;
+        }
+        
+        const elapsedTime = getTime() - this.speedPenaltyStartTime;
+        
+        if (elapsedTime >= this.speedPenaltyDuration) {
+            this.speedPenaltyActive = false;
+            print("Speed penalty ended - speed restored");
+        }
+    }
+    
+    /**
+     * Розрахунок поточної швидкості з урахуванням штрафу
+     */
+    private getCurrentSpeed(): number {
+        let speed = this.baseSpeed * this.speedMultiplier;
+        
+        if (this.speedPenaltyActive) {
+            const elapsedTime = getTime() - this.speedPenaltyStartTime;
+            const penaltyProgress = Math.min(elapsedTime / this.speedPenaltyDuration, 1.0);
+            
+            // Поступове відновлення швидкості (від 50% до 100%)
+            const penaltyMultiplier = this.speedPenaltyMultiplier + (1.0 - this.speedPenaltyMultiplier) * penaltyProgress;
+            speed *= penaltyMultiplier;
+            
+            print("Speed penalty active - multiplier: " + penaltyMultiplier.toFixed(2));
+        }
+        
+        return speed;
     }
     
     /**
@@ -396,11 +492,16 @@ export class PlayerController extends BaseScriptComponent {
      * Update функція для безперервного руху та керування анімаціями
      */
     private onUpdate(): void {
+
+        const currentSpeed = this.getCurrentSpeed();
+        print("Current Speed: " + currentSpeed + " (base: " + this.baseSpeed + ", multiplier: " + this.speedMultiplier + ")");
+        
         if (!this.canGameStart()) {
             return;
         }
         
         this.updateImmunity();
+        this.updateSpeedPenalty(); // Оновлюємо штраф за швидкість
         
         if (this.changeDir && this.playerObject) {
             // Оновлюємо поточну позицію з Transform
@@ -453,11 +554,17 @@ export class PlayerController extends BaseScriptComponent {
                 this.targetPosition.y = Math.sin(jumpProgress * Math.PI) * this.jumpHeight;
                 
                 const deltaTime = getDeltaTime();
-                this.currentPosition.z -= (this.speed + 2) * deltaTime;
+                const currentSpeed = this.getCurrentSpeed();
+                this.currentPosition.z -= (currentSpeed + 2) * deltaTime;
+                
+                this.addScore(deltaTime * 2.5 * this.speedMultiplier);
             }
         } else {
             const deltaTime = getDeltaTime();
-            this.currentPosition.z -= this.speed * deltaTime;
+            const currentSpeed = this.getCurrentSpeed();
+            this.currentPosition.z -= currentSpeed * deltaTime;
+            
+            this.addScore(deltaTime * 2 * this.speedMultiplier);
         }
         
         this.targetPosition.z = this.currentPosition.z;

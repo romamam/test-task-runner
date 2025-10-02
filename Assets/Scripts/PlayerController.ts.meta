@@ -32,6 +32,7 @@
     livesText: false
     playerObject: false
     restartScreen: false
+    scoreText: false
     startScreen: false
     tileManager: false
     winnerScreen: false
@@ -52,6 +53,7 @@
       winnerScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       restartScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       livesText: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      scoreText: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       tileManager: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
@@ -65,4 +67,5 @@
     - // @input SceneObject winnerScreen
     - // @input SceneObject restartScreen
     - '// @input SceneObject livesText {"hint":"Text component to display lives count"}'
+    - '// @input SceneObject scoreText {"hint":"Text component to display score"}'
     - '// @input Component.ScriptComponent tileManager {"hint":"TileManager component for tile system control"}'
