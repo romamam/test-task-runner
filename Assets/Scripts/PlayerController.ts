@@ -45,14 +45,35 @@ export class PlayerController extends BaseScriptComponent {
     private jumpDuration: number = 1; // Тривалість стрибка в секундах
     private jumpHeight: number = 5; // Висота стрибка
     
+    // Змінна для зберігання посилання на Update подію
+    private updateEvent: any = null;
+    
     onAwake() {
-        // Створення Update події для безперервного руху
-        this.createEvent("UpdateEvent").bind(this.onUpdate.bind(this));
         
-        // Налаштування колізій
+        this.updateEvent = this.createEvent("UpdateEvent");
+        this.updateEvent.bind(this.onUpdate.bind(this));
+        
+        
         if (this.collider) {
             this.collider.onCollisionEnter.add(() => {
                 print("Bitmoji collided with an obstacle!");
+                
+                
+                if (this.updateEvent) {
+                    this.updateEvent.enabled = false;
+                }
+                
+                
+                if (this.playerObject) {
+                    const currentPos = this.playerObject.getTransform().getLocalPosition();
+                    currentPos.y = 0;
+                    this.playerObject.getTransform().setLocalPosition(currentPos);
+                }
+                
+                // Запуск анімації падіння
+                if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
+                    (this.animationStateManager as any).setParameter("fall", true);
+                }
             });
         }
     }
