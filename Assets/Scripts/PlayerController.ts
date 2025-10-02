@@ -139,7 +139,6 @@ export class PlayerController extends BaseScriptComponent {
         this.updateEvent = this.createEvent("UpdateEvent");
         this.updateEvent.bind(this.onUpdate.bind(this));
         
-        // Створення Start події для автоматичного виклику init() як у туторіалі
         const startEvent = this.createEvent("OnStartEvent");
         startEvent.bind(this.init.bind(this));
         
@@ -176,7 +175,6 @@ export class PlayerController extends BaseScriptComponent {
         this.score = 0;
         this.speedMultiplier = 1.0;
         
-        // Скидаємо штраф за швидкість
         this.speedPenaltyActive = false;
         this.speedPenaltyStartTime = 0;
         
@@ -194,6 +192,8 @@ export class PlayerController extends BaseScriptComponent {
         if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
             (this.animationStateManager as any).setParameter("fall", false);
             (this.animationStateManager as any).setParameter("idle", true);
+            
+            (this.animationStateManager as any).setParameter("direction", 0.5);
         }
         
         if (this.startScreen) {
@@ -348,6 +348,8 @@ export class PlayerController extends BaseScriptComponent {
             if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
                 (this.animationStateManager as any).setParameter("idle", false);
                 (this.animationStateManager as any).setParameter("run", true);
+                
+                (this.animationStateManager as any).setParameter("direction", 0.5);
             }
             
             if (this.livesText) {
@@ -535,7 +537,7 @@ export class PlayerController extends BaseScriptComponent {
         // Плавна інтерполяція між поточним та цільовим напрямком
         const previousDir = this.currentDir;
         this.currentDir = MathUtils.lerp(this.currentDir, this.targetDir, 0.3);
-        
+              
         if (Math.abs(this.currentDir - previousDir) > 0.01) {
             this.updateAnimationDirection();
         }
