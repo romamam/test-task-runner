@@ -48,7 +48,7 @@
   Children:
     - !<own> a24ff612-d52c-4721-8df1-3f05b3ccddfb
   Components:
-    []
+    - !<own> d5d5a5d0-b3db-4639-be7c-2aa57d867fd0
 - !<RenderMeshVisual/058e87e1-f76e-46f9-9a54-5f8a13360ad4>
   PrefabRemaps:
     []
@@ -138,9 +138,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<BodyComponent/1cbe9ccf-087e-4cd2-8e27-60d0fe0b9694>
@@ -162,9 +162,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/24e41c98-ba92-47b7-a1b3-071adc7233ea>
@@ -206,9 +206,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/28f82e44-ac44-4cdb-b536-cd65a6082ec4>
@@ -284,6 +284,7 @@
     - 365308c7-7afa-43ab-89f8-e59aee8527e4: ae8bfe57-bef5-48d1-ac12-6faa5cf8a16d
     - 3767780c-553d-4e6d-9093-01cfd4841e12: 8ab85ed3-092d-4083-8b57-42506e808915
     - 3974137c-6e8a-4c5b-bea5-b5d79015cd80: 9c461fb0-db6e-4167-be53-047773c606b8
+    - 40bdcdc5-c118-4015-9bcc-86cd6b95b832: d5d5a5d0-b3db-4639-be7c-2aa57d867fd0
     - 42656612-8023-4c40-80a7-870dab001eb5: 386e42f7-f29d-447b-a8b6-fb30cc6d6cc2
     - 48db39c3-7377-48dc-ab20-2420881977f9: 024d0f00-4a8b-4405-86a8-61ce63303ee5
     - 4a3c04a0-16c3-44ee-a3bf-8f835dbd3bed: 57b60153-e387-4014-bb69-edfd335a7b69
@@ -324,7 +325,7 @@
     Mesh: !<reference> f0df6d2e-0265-4e5a-bef0-25549ad4264b
     Convex: true
     Skin: !<reference> 00000000-0000-0000-0000-000000000000
-  Matter: !<reference> 00000000-0000-0000-0000-000000000000
+  Matter: !<reference> 158f6329-b07b-4962-8e31-bbd884f2467d
   Filter: !<reference> 00000000-0000-0000-0000-000000000000
   OverlapFilter: !<reference> 00000000-0000-0000-0000-000000000000
   WorldSettings: !<reference> 00000000-0000-0000-0000-000000000000
@@ -334,9 +335,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/386e42f7-f29d-447b-a8b6-fb30cc6d6cc2>
@@ -398,9 +399,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<ObjectPrefab/5c235c43-c8bd-47b9-a89f-acd8aa21ca64>
@@ -485,9 +486,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<BodyComponent/70aae24e-97d8-479e-83c5-36de6376bf68>
@@ -509,9 +510,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<BodyComponent/70b7a3e2-ce09-4984-9a12-afcd9c7dd652>
@@ -533,9 +534,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<SceneObject/8ab85ed3-092d-4083-8b57-42506e808915>
@@ -800,9 +801,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/d03a8af6-cba4-4329-a515-f4e99ce0dca7>
@@ -825,6 +826,22 @@
   BlendNormals: false
   BlendShapes:
     {}
+- !<ScriptComponent/d5d5a5d0-b3db-4639-be7c-2aa57d867fd0>
+  PrefabRemaps:
+    []
+  Name: TagManager
+  Enabled: true
+  ScriptAsset: !<reference> cf5308c7-918f-4bfb-9fdd-a4d67564934f
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      objectTag: Cake
+  ScriptTypes:
+    "":
+      {}
 - !<BodyComponent/dfd9ac00-243a-4254-b8a0-aa53835c3805>
   PrefabRemaps:
     []
@@ -844,9 +861,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/e428d069-4282-4743-bade-d4b306c45c6a>
@@ -925,9 +942,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/ff9aef99-58e1-41ab-822e-5a41c22f1924>

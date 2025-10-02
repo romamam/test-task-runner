@@ -79,9 +79,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/1729d08b-d3e5-4eca-858a-7e700b6b0b2b>
@@ -133,7 +133,7 @@
     Mesh: !<reference> f0df6d2e-0265-4e5a-bef0-25549ad4264b
     Convex: true
     Skin: !<reference> 00000000-0000-0000-0000-000000000000
-  Matter: !<reference> 00000000-0000-0000-0000-000000000000
+  Matter: !<reference> 158f6329-b07b-4962-8e31-bbd884f2467d
   Filter: !<reference> 00000000-0000-0000-0000-000000000000
   OverlapFilter: !<reference> 00000000-0000-0000-0000-000000000000
   WorldSettings: !<reference> 00000000-0000-0000-0000-000000000000
@@ -143,9 +143,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<SceneObject/2378a95f-4a18-4485-b347-7d07d84176d2>
@@ -244,9 +244,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/365308c7-7afa-43ab-89f8-e59aee8527e4>
@@ -306,6 +306,22 @@
   BlendNormals: false
   BlendShapes:
     {}
+- !<ScriptComponent/40bdcdc5-c118-4015-9bcc-86cd6b95b832>
+  PrefabRemaps:
+    []
+  Name: TagManager
+  Enabled: true
+  ScriptAsset: !<reference> cf5308c7-918f-4bfb-9fdd-a4d67564934f
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      objectTag: Cake
+  ScriptTypes:
+    "":
+      {}
 - !<RenderMeshVisual/42656612-8023-4c40-80a7-870dab001eb5>
   PrefabRemaps:
     []
@@ -340,7 +356,7 @@
   Children:
     - !<own> bb8dc1fb-1897-4ec3-b759-be00f5fb1321
   Components:
-    []
+    - !<own> 40bdcdc5-c118-4015-9bcc-86cd6b95b832
 - !<BodyComponent/4a3c04a0-16c3-44ee-a3bf-8f835dbd3bed>
   PrefabRemaps:
     []
@@ -360,9 +376,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<BodyComponent/4e71e0bc-9dd9-4813-b665-814fb8669451>
@@ -384,9 +400,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<SceneObject/4fb3e821-063f-46b6-9c3d-7c13ba6c4056>
@@ -498,9 +514,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/6bb8acc7-a066-4af1-98e5-a04d8b22a78b>
@@ -542,9 +558,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<SceneObject/9ad70176-c44e-4638-aeef-8d96f2e4e44e>
@@ -656,9 +672,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<SceneObject/bb8dc1fb-1897-4ec3-b759-be00f5fb1321>
@@ -699,9 +715,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<BodyComponent/cb97db05-38de-4946-9b52-874c28d73b13>
@@ -723,9 +739,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/d6611b7b-17a1-4704-9078-5a79a8d2c737>
@@ -861,9 +877,9 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-  Dynamic: false
+  Dynamic: true
   BodySetting: Density
-  BodySettingValue: 1.000000
+  BodySettingValue: 0.000000
   Damping: 0.000000
   AngularDamping: 0.000000
 - !<RenderMeshVisual/fb1c0174-bb73-4190-81e7-57e54fb39f3b>

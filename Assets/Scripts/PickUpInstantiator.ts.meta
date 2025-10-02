@@ -1,0 +1,50 @@
+- !<AssetImportMetadata/c5272df2-b10a-4d87-aae3-c2de303c38b7>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 96211a63-c760-4926-9f22-e62dae915ceb
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 96211a63-c760-4926-9f22-e62dae915ceb
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 745e3f49-5999-4898-abe9-415982904d60
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/745e3f49-5999-4898-abe9-415982904d60>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: c62be2f9-49a7-491e-a6e3-79a27f6d5de0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cakePrefab: false
+    minDistance: false
+    spawnChance: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - cakePrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      spawnChance: 0.100000
+      minDistance: !<float> 100.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.ObjectPrefab cakePrefab {"hint":"Cake prefab for spawning"}'
+    - '// @input number spawnChance = 0.1 {"hint":"Probability of spawning a cake (0.0 to 1.0)"}'
+    - '// @input number minDistance = 100 {"hint":"Minimum distance between cakes"}'
