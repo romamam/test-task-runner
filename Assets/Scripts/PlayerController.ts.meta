@@ -29,6 +29,7 @@
     animationStateManager: false
     collider: false
     gameOverScreen: false
+    livesText: false
     playerObject: false
     restartScreen: false
     startScreen: false
@@ -49,6 +50,7 @@
       gameOverScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       winnerScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       restartScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      livesText: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -60,3 +62,4 @@
     - // @input SceneObject gameOverScreen
     - // @input SceneObject winnerScreen
     - // @input SceneObject restartScreen
+    - '// @input SceneObject livesText {"hint":"Text component to display lives count"}'

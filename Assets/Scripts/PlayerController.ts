@@ -32,6 +32,10 @@ export class PlayerController extends BaseScriptComponent {
     @input("SceneObject")
     restartScreen: SceneObject = null;
     
+    @input("SceneObject")
+    @hint('Text component to display lives count')
+    livesText: SceneObject = null;
+    
     // Змінна для контролю руху
     private changeDir: boolean = false;
     
@@ -66,6 +70,25 @@ export class PlayerController extends BaseScriptComponent {
     // Змінна для контролю початку гри
     public gameStart: boolean = false;
     
+    // Система життів
+    private lives: number = 3; // Початкова кількість життів
+    private isImmune: boolean = false; // Чи є імунітет
+    private immunityDuration: number = 2.0; // Тривалість імунітету в секундах
+    private immunityStartTime: number = 0; // Час початку імунітету
+    private blinkSpeed: number = 10.0; // Швидкість миготіння
+    
+    /**
+     * Функція оновлення тексту життів
+     */
+    private updateLivesText(): void {
+        if (this.livesText) {
+            const textComponent = this.livesText.getComponent("Component.Text");
+            if (textComponent && textComponent.text !== undefined) {
+                textComponent.text = "Lives: " + this.lives;
+            }
+        }
+    }
+    
     onAwake() {
         
         this.updateEvent = this.createEvent("UpdateEvent");
@@ -78,23 +101,7 @@ export class PlayerController extends BaseScriptComponent {
         
         if (this.collider) {
             this.collider.onCollisionEnter.add(() => {
-                print("Bitmoji collided with an obstacle!");
-                
-                
-                if (this.updateEvent) {
-                    this.updateEvent.enabled = false;
-                }
-                
-                
-                if (this.playerObject) {
-                    const currentPos = this.playerObject.getTransform().getLocalPosition();
-                    currentPos.y = 0;
-                    this.playerObject.getTransform().setLocalPosition(currentPos);
-                }
-                
-                if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
-                    (this.animationStateManager as any).setParameter("fall", true);
-                }
+                this.handleCollision();
             });
         }
     }
@@ -116,6 +123,14 @@ export class PlayerController extends BaseScriptComponent {
         this.jumpStartTime = 0;
         
         this.gameStart = false;
+        
+        this.lives = 3;
+        this.isImmune = false;
+        this.immunityStartTime = 0;
+        
+        if (this.collider) {
+            this.collider.enabled = true;
+        }
         
         this.currentPosition = vec3.zero();
         this.targetPosition = vec3.zero();
@@ -142,6 +157,69 @@ export class PlayerController extends BaseScriptComponent {
             this.restartScreen.enabled = false;
         }
         
+        this.updateLivesText();
+        
+        if (this.livesText) {
+            this.livesText.enabled = true;
+        }
+        
+    }
+    
+    /**
+     * Обробка колізії з перешкодою
+     */
+    private handleCollision(): void {
+        print("Bitmoji collided with an obstacle!");
+        
+        if (this.isImmune) {
+            print("Player is immune - collision ignored");
+            return;
+        }
+        
+        this.lives--;
+        print("Lives remaining: " + this.lives);
+        
+        if (this.lives < 0) {
+            this.lives = 0;
+        }
+        
+        this.updateLivesText();
+        
+        if (this.lives <= 0) {
+            print("Game Over - showing fall animation");
+            
+            if (this.updateEvent) {
+                this.updateEvent.enabled = false;
+            }
+            
+            if (this.playerObject) {
+                const currentPos = this.playerObject.getTransform().getLocalPosition();
+                currentPos.y = 0;
+                this.playerObject.getTransform().setLocalPosition(currentPos);
+            }
+            
+            if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
+                (this.animationStateManager as any).setParameter("fall", true);
+            }
+        } else {
+            this.activateImmunity();
+        }
+    }
+    
+    /**
+     * Активація імунітету після колізії
+     */
+    private activateImmunity(): void {
+        this.isImmune = true;
+        this.immunityStartTime = getTime();
+        
+        // Вимікаємо колайдер під час імунітету
+        if (this.collider) {
+            this.collider.enabled = false;
+            print("Collider disabled during immunity");
+        }
+        
+        print("Immunity activated for " + this.immunityDuration + " seconds");
     }
     
     /**
@@ -155,6 +233,11 @@ export class PlayerController extends BaseScriptComponent {
             if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
                 (this.animationStateManager as any).setParameter("idle", false);
             }
+            
+            if (this.livesText) {
+                this.livesText.enabled = true;
+            }
+            
             return true;
         }
         return false;
@@ -274,6 +357,8 @@ export class PlayerController extends BaseScriptComponent {
             return;
         }
         
+        this.updateImmunity();
+        
         if (this.changeDir && this.playerObject) {
             // Оновлюємо поточну позицію з Transform
             this.currentPosition = this.playerObject.getTransform().getLocalPosition();
@@ -360,6 +445,34 @@ export class PlayerController extends BaseScriptComponent {
             // Якщо гравець не рухається, повертаємо до центральної анімації (Run)
             if ((this.animationStateManager as any).setParameter) {
                 (this.animationStateManager as any).setParameter("direction", 0.5);
+            }
+        }
+    }
+    
+    /**
+     * Оновлення імунітету та миготіння
+     */
+    private updateImmunity(): void {
+        if (this.isImmune) {
+            const elapsedTime = getTime() - this.immunityStartTime;
+            
+            if (elapsedTime >= this.immunityDuration) {
+                this.isImmune = false;
+                print("Immunity ended");
+                
+                if (this.playerObject) {
+                    this.playerObject.enabled = true;
+                }
+                
+                if (this.collider) {
+                    this.collider.enabled = true;
+                    print("Collider re-enabled after immunity");
+                }
+            } else {
+                if (this.playerObject) {
+                    const blinkValue = Math.sin(elapsedTime * this.blinkSpeed);
+                    this.playerObject.enabled = blinkValue > 0;
+                }
             }
         }
     }
