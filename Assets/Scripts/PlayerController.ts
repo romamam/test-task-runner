@@ -130,7 +130,6 @@ export class PlayerController extends BaseScriptComponent {
         const newMultiplier = 1.0 + Math.floor(this.score / this.speedIncreaseInterval) * 0.1;
         if (newMultiplier > this.speedMultiplier) {
             this.speedMultiplier = newMultiplier;
-            print("Speed increased! Score: " + Math.floor(this.score) + "m, New Multiplier: " + this.speedMultiplier);
         }
     }
     
@@ -144,8 +143,8 @@ export class PlayerController extends BaseScriptComponent {
         
         
         if (this.collider) {
-            this.collider.onCollisionEnter.add(() => {
-                this.handleCollision();
+            this.collider.onCollisionEnter.add((collisionInfo: any) => {
+                this.handleCollision(collisionInfo);
             });
         }
     }
@@ -228,16 +227,80 @@ export class PlayerController extends BaseScriptComponent {
     /**
      * Обробка колізії з перешкодою
      */
-    private handleCollision(): void {
-        print("Bitmoji collided with an obstacle!");
-        
+    private handleCollision(collisionInfo: any): void {
         if (this.isImmune) {
-            print("Player is immune - collision ignored");
             return;
         }
         
+        const collidedObject = this.getCollisionObject(collisionInfo);
+        
+        if (collidedObject) {
+            this.handleCollisionByType(collidedObject);
+        } else {
+            this.handleObstacleCollision();
+        }
+    }
+    
+    /**
+     * Отримує SceneObject з collisionInfo
+     */
+    private getCollisionObject(collisionInfo: any): SceneObject | null {
+        if (collisionInfo.collision && 
+            collisionInfo.collision.collider && 
+            collisionInfo.collision.collider.sceneObject) {
+            
+            return collisionInfo.collision.collider.sceneObject;
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Обробляє колізію залежно від типу об'єкта
+     */
+    private handleCollisionByType(sceneObject: SceneObject): void {
+        const objectName = sceneObject.name.toLowerCase();
+        const parentName = sceneObject.getParent() ? sceneObject.getParent().name.toLowerCase() : "";
+        
+        // Перевіряємо чи це торт
+        if (objectName.includes("cake") || parentName.includes("cake")) {
+            this.handleCakeCollection(sceneObject);
+        }
+        // Перевіряємо чи це перешкода
+        else if (objectName.includes("obstacle") || 
+                 parentName.includes("obstacle") || 
+                 parentName.includes("high") || 
+                 parentName.includes("short")) {
+            this.handleObstacleCollision();
+        }
+        // Невідомий тип - вважаємо перешкодою
+        else {
+            this.handleObstacleCollision();
+        }
+    }
+    
+    /**
+     * Обробка колізії з тортом
+     */
+    private handleCakeCollection(sceneObject: SceneObject): void {
+        // Додаємо бали
+        this.addScore(10);
+        
+        // Видаляємо торт зі сцени
+        if (sceneObject) {
+            if (sceneObject.getParent()) {
+                sceneObject.getParent().destroy();
+            } else {
+                sceneObject.destroy();
+            }
+        }
+    }
+    
+    /**
+     * Обробка колізії з перешкодою
+     */
+    private handleObstacleCollision(): void {
         this.lives--;
-        print("Lives remaining: " + this.lives);
         
         if (this.lives < 0) {
             this.lives = 0;
@@ -246,8 +309,6 @@ export class PlayerController extends BaseScriptComponent {
         this.updateLivesText();
         
         if (this.lives <= 0) {
-            print("Game Over - showing fall animation");
-            
             if (this.updateEvent) {
                 this.updateEvent.enabled = false;
             }
@@ -268,14 +329,12 @@ export class PlayerController extends BaseScriptComponent {
             
             if (this.restartScreen) {
                 this.restartScreen.enabled = true;
-                print("PlayerController: RestartScreen enabled");
             }
         } else {
             this.activateImmunity();
-            this.activateSpeedPenalty(); // Додаємо штраф за швидкість
+            this.activateSpeedPenalty();
         }
     }
-    
     /**
      * Активація імунітету після колізії
      */
@@ -283,13 +342,9 @@ export class PlayerController extends BaseScriptComponent {
         this.isImmune = true;
         this.immunityStartTime = getTime();
         
-        // Вимікаємо колайдер під час імунітету
         if (this.collider) {
             this.collider.enabled = false;
-            print("Collider disabled during immunity");
         }
-        
-        print("Immunity activated for " + this.immunityDuration + " seconds");
     }
     
     /**
@@ -298,7 +353,6 @@ export class PlayerController extends BaseScriptComponent {
     private activateSpeedPenalty(): void {
         this.speedPenaltyActive = true;
         this.speedPenaltyStartTime = getTime();
-        print("Speed penalty activated for " + this.speedPenaltyDuration + " seconds");
     }
     
     /**
@@ -313,7 +367,6 @@ export class PlayerController extends BaseScriptComponent {
         
         if (elapsedTime >= this.speedPenaltyDuration) {
             this.speedPenaltyActive = false;
-            print("Speed penalty ended - speed restored");
         }
     }
     
@@ -330,8 +383,6 @@ export class PlayerController extends BaseScriptComponent {
             // Поступове відновлення швидкості (від 50% до 100%)
             const penaltyMultiplier = this.speedPenaltyMultiplier + (1.0 - this.speedPenaltyMultiplier) * penaltyProgress;
             speed *= penaltyMultiplier;
-            
-            print("Speed penalty active - multiplier: " + penaltyMultiplier.toFixed(2));
         }
         
         return speed;
@@ -610,7 +661,6 @@ export class PlayerController extends BaseScriptComponent {
             
             if (elapsedTime >= this.immunityDuration) {
                 this.isImmune = false;
-                print("Immunity ended");
                 
                 if (this.playerObject) {
                     this.playerObject.enabled = true;
@@ -618,7 +668,6 @@ export class PlayerController extends BaseScriptComponent {
                 
                 if (this.collider) {
                     this.collider.enabled = true;
-                    print("Collider re-enabled after immunity");
                 }
             } else {
                 if (this.playerObject) {
