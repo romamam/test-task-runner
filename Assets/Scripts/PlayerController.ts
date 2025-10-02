@@ -6,6 +6,7 @@
 @component
 export class PlayerController extends BaseScriptComponent {
     
+    
     // Входи для Animation State Manager та гравця
     @input('Component.ScriptComponent')
     @hint('Animation State Manager компонент для керування анімаціями')
@@ -14,6 +15,10 @@ export class PlayerController extends BaseScriptComponent {
     @input('SceneObject')
     @hint('SceneObject гравця для руху')
     playerObject: SceneObject = null;
+    
+    @input('Physics.ColliderComponent')
+    @hint('Collider component for collision detection')
+    collider: any = null;
     
     // Змінна для контролю руху
     private changeDir: boolean = false;
@@ -28,25 +33,35 @@ export class PlayerController extends BaseScriptComponent {
     private currentMoveTime: number = 0; // Поточний час руху
     
     // Змінна для швидкості руху вперед
-    private speed: number = 20; // Швидкість руху вперед
+    private speed: number = 50; // Швидкість руху вперед
     
     // Змінні для керування напрямком анімації
     private currentDir: number = 0; // Поточний напрямок (-1 = ліво, 0 = центр, 1 = право)
     private targetDir: number = 0; // Цільовий напрямок
     
+    // Змінні для системи стрибка
+    private jump: boolean = false; // Чи стрибає гравець зараз
+    private jumpStartTime: number = 0; // Час початку стрибка
+    private jumpDuration: number = 1; // Тривалість стрибка в секундах
+    private jumpHeight: number = 5; // Висота стрибка
+    
     onAwake() {
         // Створення Update події для безперервного руху
         this.createEvent("UpdateEvent").bind(this.onUpdate.bind(this));
+        
+        // Налаштування колізій
+        if (this.collider) {
+            this.collider.onCollisionEnter.add(() => {
+                print("Bitmoji collided with an obstacle!");
+            });
+        }
     }
     
     onStart() {
-        // Ініціалізація початкових позицій після того, як всі компоненти готові
+        // Ініціалізація початкових позицій
         if (this.playerObject) {
             this.currentPosition = this.playerObject.getTransform().getLocalPosition();
             this.targetPosition = this.currentPosition;
-            print("PlayerController initialized - starting position: " + this.currentPosition.x);
-        } else {
-            print("ERROR: playerObject not assigned in Inspector!");
         }
     }
     
@@ -124,6 +139,9 @@ export class PlayerController extends BaseScriptComponent {
             return;
         }
         
+        this.jump = true;
+        this.jumpStartTime = getTime();
+        
         // Trigger jump animation using Animation State Manager
         if ((this.animationStateManager as any).setTrigger) {
             (this.animationStateManager as any).setTrigger("jump");
@@ -178,19 +196,33 @@ export class PlayerController extends BaseScriptComponent {
         const previousDir = this.currentDir;
         this.currentDir = MathUtils.lerp(this.currentDir, this.targetDir, 0.3);
         
-        // Оновлюємо анімацію тільки якщо напрямок змінився
         if (Math.abs(this.currentDir - previousDir) > 0.01) {
             this.updateAnimationDirection();
         }
         
-        // Безперервно зменшуємо currentPos.z для симуляції руху вперед
-        const deltaTime = getDeltaTime();
-        this.currentPosition.z -= this.speed * deltaTime;
+        // Обробка стрибка
+        if (this.jump) {
+            const elapsedTime = getTime() - this.jumpStartTime;
+            
+            if (elapsedTime >= this.jumpDuration) {
+                this.jump = false;
+                this.targetPosition.y = 0;
+                print("Jump completed - returned to ground");
+            } else {
+                const jumpProgress = elapsedTime / this.jumpDuration;
+                
+                this.targetPosition.y = Math.sin(jumpProgress * Math.PI) * this.jumpHeight;
+                
+                const deltaTime = getDeltaTime();
+                this.currentPosition.z -= (this.speed + 2) * deltaTime;
+            }
+        } else {
+            const deltaTime = getDeltaTime();
+            this.currentPosition.z -= this.speed * deltaTime;
+        }
         
-        // Оновлюємо targetPos.z щоб відповідати оновленому currentPos.z
         this.targetPosition.z = this.currentPosition.z;
         
-        // Застосовуємо оновлену цільову позицію до Transform гравця
         if (this.playerObject) {
             this.playerObject.getTransform().setLocalPosition(this.targetPosition);
         }
@@ -220,4 +252,5 @@ export class PlayerController extends BaseScriptComponent {
             }
         }
     }
+    
 }
