@@ -26,7 +26,18 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    distance: false
+    obstacleCount: false
     obstacles: false
+    startZPosition: false
+    useRandomColor: false
+    useRandomCount: false
+    useRandomDistance: false
+    useRandomHeight: false
+    useRandomRotation: false
+    useRandomScale: false
+    useRandomZPosition: false
+    xPositions: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -38,8 +49,33 @@
   DefaultScriptInputs:
     - obstacles: !<reference.ObjectPrefab[]>
         []
+      obstacleCount: !<float> 3.000000
+      useRandomCount: false
+      distance: !<float> 45.000000
+      useRandomDistance: false
+      useRandomHeight: false
+      useRandomZPosition: false
+      useRandomRotation: false
+      useRandomScale: false
+      useRandomColor: false
+      xPositions: !<float[]>
+        - 14.000000
+        - 0.000000
+        - -14.000000
+      startZPosition: !<float> 40.000000
   ScriptTypes:
     -
       {}
   InputLines:
-    - '// @input Asset.ObjectPrefab[] obstacles = {} {"hint":"Масив obstacle prefabs для рандомного вибору"}'
+    - '// @input Asset.ObjectPrefab[] obstacles = {} {"hint":"Obstacle prefabs"}'
+    - '// @input number obstacleCount = 3 {"hint":"Number of obstacles to spawn per tile"}'
+    - '// @input boolean useRandomCount {"hint":"Use random obstacle count (between 1 and obstacleCount)"}'
+    - '// @input number distance = 45 {"hint":"Distance between obstacles"}'
+    - '// @input boolean useRandomDistance {"hint":"Use random distance between obstacles"}'
+    - '// @input boolean useRandomHeight {"hint":"Use random Y position for obstacles"}'
+    - '// @input boolean useRandomZPosition {"hint":"Use random Z position for obstacles"}'
+    - '// @input boolean useRandomRotation {"hint":"Use random rotation for obstacles"}'
+    - '// @input boolean useRandomScale {"hint":"Use random scale for obstacles"}'
+    - '// @input boolean useRandomColor {"hint":"Use random color for obstacles"}'
+    - '// @input number[] xPositions = {14,0,-14} {"hint":"X positions for obstacles (left, center, right)"}'
+    - '// @input number startZPosition = 40 {"hint":"Starting Z position for obstacles"}'

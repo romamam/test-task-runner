@@ -25,12 +25,13 @@ export class TileManager extends BaseScriptComponent {
     @hint('Number of tiles to spawn initially')
     initialTileCount: number = 5;
     
-    private grounds: SceneObject[] = [];
+    private tiles: SceneObject[] = [];
     private zSpawn: number = 0;
-    private readonly resetDistance: number = 200;
+    @input('number')
+    @hint('Distance after which tiles are reset (larger = tiles disappear later)')
+    resetDistance: number = 300;
     private firstTileSpawned: boolean = false;
     private resetHit: boolean = false;
-    private firstGrounds: SceneObject[] = [];
     
     onAwake() {
         this.createEvent("UpdateEvent").bind(this.onUpdate.bind(this));
@@ -43,73 +44,66 @@ export class TileManager extends BaseScriptComponent {
      */
     onStart(): void {
         print("TileManager: onStart() called - resetting tile system");
-        
-        this.zSpawn = 0;
-        
-        for (let i = this.grounds.length - 1; i >= 0; i--) {
-            const tile = this.grounds[i];
-            if (tile) {
-                tile.destroy();
-            }
-        }
-        
-        this.grounds = [];
-        this.firstGrounds = [];
-        this.firstTileSpawned = false;
-        this.resetHit = false;
-        
-        this.initializeTiles();
-        
-        print("TileManager: Tile system reset and initialized");
+        this.resetTiles();
     }
     
     /**
      * Public method to reset tiles (called by GameManager)
      */
     resetTiles(): void {
-        print("TileManager: resetTiles() called directly");
-        this.onStart();
-    }
-    
-    /**
-     * Initialize initial tiles
-     */
-    private initializeTiles(): void {
-        for (let i = 0; i < this.initialTileCount; i++) {
-            if (!this.firstTileSpawned) {
-                this.spawnTile(true);
-                this.firstTileSpawned = true;
-            } else {
-                this.spawnTile(false);
+        print("TileManager: resetTiles() called");
+        
+        // видаляємо старі тайли
+        this.tiles.forEach(tile => {
+            if (tile) {
+                tile.destroy();
             }
+        });
+        this.tiles = [];
+        this.zSpawn = 0;
+        this.firstTileSpawned = false;
+        this.resetHit = false;
+
+        // створюємо стартові тайли
+        for (let i = 0; i < this.initialTileCount; i++) {
+            this.spawnTile(!this.firstTileSpawned);
+            this.firstTileSpawned = true;
         }
+        
+        print("TileManager: Tile system reset and initialized");
     }
     
     /**
      * Create new tile and add it to the array
      */
     private spawnTile(isFirst: boolean = false): void {
-        let prefabToUse = isFirst ? this.firstTilePrefab : this.tilePrefab;
-        if (!prefabToUse) {
+        const prefab = isFirst ? this.firstTilePrefab : this.tilePrefab;
+        if (!prefab) {
             print("ERROR: prefab not assigned!");
             return;
         }
-        
-        const newTile = prefabToUse.instantiate(this.sceneObject);
-        const tilePosition = new vec3(0, 0, this.zSpawn);
-        newTile.getTransform().setLocalPosition(tilePosition);
-        this.grounds.push(newTile);
+
+        const tile = prefab.instantiate(this.sceneObject);
+        tile.getTransform().setLocalPosition(new vec3(0, 0, this.zSpawn));
+        this.tiles.push(tile);
+
+        // Ініціалізуємо obstacles і pickups на тайлі
+        // Компоненти будуть ініціалізовані автоматично через onStart()
+
         this.zSpawn -= this.tileLength;
         print((isFirst ? "First " : "") + "Tile positioned at z: " + this.zSpawn);
     }
-    
+
     /**
      * Move tile to the end of the sequence
      */
     private resetTile(tile: SceneObject): void {
-        const newPosition = new vec3(0, 0, this.zSpawn);
-        tile.getTransform().setLocalPosition(newPosition);
+        tile.getTransform().setLocalPosition(new vec3(0, 0, this.zSpawn));
         this.zSpawn -= this.tileLength;
+
+        // перегенеруємо obstacles та pickups
+        // Компоненти будуть перегенеровані автоматично через onStart()
+
         print("Tile reset to z: " + this.zSpawn);
     }
     
@@ -117,26 +111,26 @@ export class TileManager extends BaseScriptComponent {
      * Track player position and check tiles
      */
     private onUpdate(): void {
-        if (!this.player) {
-            return;
-        }
-        
+        if (!this.player) return;
+
         if (this.resetHit) {
-            print("TileManager: Reset detected, calling onStart()");
-            this.onStart();
-            this.resetHit = false; // Скидаємо прапор після обробки
+            print("TileManager: Reset detected, calling resetTiles()");
+            this.resetTiles();
+            this.resetHit = false;
             return;
         }
-        
+
         const playerPosition = this.player.getTransform().getWorldPosition();
-        
-        for (let i = this.grounds.length - 1; i >= 0; i--) {
-            const tile = this.grounds[i];
+
+        this.tiles.forEach(tile => {
             const tilePosition = tile.getTransform().getLocalPosition();
             
+            // Тайл має бути переміщений, коли гравець пройшов його
+            // (tilePosition.z більше playerPosition.z означає, що тайл позаду гравця)
             if (tilePosition.z > playerPosition.z + this.resetDistance) {
+                print(`Tile reset: tileZ=${tilePosition.z}, playerZ=${playerPosition.z}, distance=${tilePosition.z - playerPosition.z}`);
                 this.resetTile(tile);
             }
-        }
+        });
     }
 }

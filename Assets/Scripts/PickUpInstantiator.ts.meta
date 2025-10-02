@@ -45,6 +45,6 @@
     -
       {}
   InputLines:
-    - '// @input Asset.ObjectPrefab cakePrefab {"hint":"Cake prefab for spawning"}'
-    - '// @input number spawnChance = 0.1 {"hint":"Probability of spawning a cake (0.0 to 1.0)"}'
-    - '// @input number minDistance = 100 {"hint":"Minimum distance between cakes"}'
+    - '// @input Asset.ObjectPrefab cakePrefab {"hint":"Cake prefab"}'
+    - '// @input number spawnChance = 0.1 {"hint":"Spawn chance 0..1"}'
+    - '// @input number minDistance = 100 {"hint":"Min distance between cakes"}'

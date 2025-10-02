@@ -2,12 +2,11 @@
 @component
 export class ObstacleInstantiator extends BaseScriptComponent {
     
-    // @input Asset.ObjectPrefab[] obstacles
     @input('Asset.ObjectPrefab[]')
-    @hint('Масив obstacle prefabs для рандомного вибору')
+    @hint('Obstacle prefabs')
     obstacles: ObjectPrefab[] = [];
     
-    private currentZPosition: number = 40;
+    private currentZ: number = 40;
     private readonly distance: number = 45;
     private readonly xPositions: number[] = [14, 0, -14];
     
@@ -21,22 +20,20 @@ export class ObstacleInstantiator extends BaseScriptComponent {
     }
     
     /**
-     * Reset positions for new obstacle generation
+     * Public method to reset positions (called by TileManager)
      */
-    private resetPositions(): void {
-        this.currentZPosition = 40;
+    resetPositions(): void {
+        this.clearExistingObstacles();
+        this.currentZ = 40; // Встановлюємо фіксовану позицію від початку тайлу
+        this.init();
     }
     
     /**
      * Initialize - generates 3 obstacles on the tile
      */
     private init(): void {
-        if (this.obstacles.length === 0) {
-            return;
-        }
-        
-        this.clearExistingObstacles();
-        
+        if (this.obstacles.length === 0) return;
+
         for (let i = 0; i < 3; i++) {
             this.instantiateObstacle();
         }
@@ -46,28 +43,26 @@ export class ObstacleInstantiator extends BaseScriptComponent {
      * Clear existing obstacles before generating new ones
      */
     private clearExistingObstacles(): void {
-        const childCount = this.sceneObject.getChildrenCount();
-        
-        for (let i = childCount - 1; i >= 0; i--) {
+        const childrenCount = this.sceneObject.getChildrenCount();
+        for (let i = childrenCount - 1; i >= 0; i--) {
             const child = this.sceneObject.getChild(i);
-            if (child && child.name !== "Tile") {
-                child.destroy();
-            }
+            if (child && child.name !== "Tile") child.destroy();
         }
     }
-    
+
     /**
      * Instantiates a new obstacle at a random x position
      */
     private instantiateObstacle(): void {
-        const randomObstacleIndex = Math.floor(MathUtils.randomRange(0, this.obstacles.length));
-        const newObstacle = this.obstacles[randomObstacleIndex].instantiate(this.sceneObject);
-        const randomXIndex = Math.floor(MathUtils.randomRange(0, this.xPositions.length));
-        const transform = newObstacle.getTransform();
-        if (transform) {
-            transform.setLocalPosition(new vec3(this.xPositions[randomXIndex], 0, this.currentZPosition));
-        }
-        
-        this.currentZPosition -= this.distance;
+        const index = Math.floor(Math.random() * this.obstacles.length);
+        const prefab = this.obstacles[index];
+        const obstacle = prefab.instantiate(this.sceneObject);
+
+        const xIndex = Math.floor(Math.random() * this.xPositions.length);
+        const x = this.xPositions[xIndex];
+
+        obstacle.getTransform().setLocalPosition(new vec3(x, 0, this.currentZ));
+
+        this.currentZ -= this.distance;
     }
 }
