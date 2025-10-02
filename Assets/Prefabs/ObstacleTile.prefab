@@ -19,6 +19,7 @@
     - !<own> 3db71115-29f5-442f-ba93-e5037676102b
   Components:
     - !<own> 6aebfbc5-a5c0-4d41-8a5d-cbe30b2c3ad6
+    - !<own> 35355397-b538-4c9b-b89b-cdd784bed48a
 - !<ColliderComponent/25e6f569-a5f5-44a2-9d1e-806ebd60e3b2>
   PrefabRemaps:
     []
@@ -37,6 +38,24 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
+- !<ScriptComponent/35355397-b538-4c9b-b89b-cdd784bed48a>
+  PrefabRemaps:
+    []
+  Name: PickUpInstantiator
+  Enabled: true
+  ScriptAsset: !<reference> 96211a63-c760-4926-9f22-e62dae915ceb
+  ScriptInputsDefault:
+    minDistance: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      cakePrefab: !<reference.ObjectPrefab> dfbacb4c-ea43-4477-a228-0dfaca85f3dc
+      spawnChance: !<float> 1.000000
+      minDistance: !<float> 100.000000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/3db71115-29f5-442f-ba93-e5037676102b>
   PrefabRemaps:
     []
@@ -67,7 +86,7 @@
       obstacles: !<reference.ObjectPrefab[]>
         - !<reference> 6c531449-f944-49e3-8380-6e954d1b8fc7
         - !<reference> 0244485b-8986-45ca-b1a9-2bc7a34ab276
-        - !<reference> 3adbb900-8591-41bb-bfbd-a8668000fb7b
+        - !<reference> fd70d41c-1fa5-4ae8-b14e-ad27474c98a1
   ScriptTypes:
     "":
       {}
