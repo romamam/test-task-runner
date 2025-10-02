@@ -48,7 +48,7 @@
   Children:
     - !<own> a24ff612-d52c-4721-8df1-3f05b3ccddfb
   Components:
-    - !<own> d5d5a5d0-b3db-4639-be7c-2aa57d867fd0
+    []
 - !<RenderMeshVisual/058e87e1-f76e-46f9-9a54-5f8a13360ad4>
   PrefabRemaps:
     []
@@ -284,7 +284,6 @@
     - 365308c7-7afa-43ab-89f8-e59aee8527e4: ae8bfe57-bef5-48d1-ac12-6faa5cf8a16d
     - 3767780c-553d-4e6d-9093-01cfd4841e12: 8ab85ed3-092d-4083-8b57-42506e808915
     - 3974137c-6e8a-4c5b-bea5-b5d79015cd80: 9c461fb0-db6e-4167-be53-047773c606b8
-    - 40bdcdc5-c118-4015-9bcc-86cd6b95b832: d5d5a5d0-b3db-4639-be7c-2aa57d867fd0
     - 42656612-8023-4c40-80a7-870dab001eb5: 386e42f7-f29d-447b-a8b6-fb30cc6d6cc2
     - 48db39c3-7377-48dc-ab20-2420881977f9: 024d0f00-4a8b-4405-86a8-61ce63303ee5
     - 4a3c04a0-16c3-44ee-a3bf-8f835dbd3bed: 57b60153-e387-4014-bb69-edfd335a7b69
@@ -826,22 +825,6 @@
   BlendNormals: false
   BlendShapes:
     {}
-- !<ScriptComponent/d5d5a5d0-b3db-4639-be7c-2aa57d867fd0>
-  PrefabRemaps:
-    []
-  Name: TagManager
-  Enabled: true
-  ScriptAsset: !<reference> cf5308c7-918f-4bfb-9fdd-a4d67564934f
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      objectTag: Cake
-  ScriptTypes:
-    "":
-      {}
 - !<BodyComponent/dfd9ac00-243a-4254-b8a0-aa53835c3805>
   PrefabRemaps:
     []

@@ -306,22 +306,6 @@
   BlendNormals: false
   BlendShapes:
     {}
-- !<ScriptComponent/40bdcdc5-c118-4015-9bcc-86cd6b95b832>
-  PrefabRemaps:
-    []
-  Name: TagManager
-  Enabled: true
-  ScriptAsset: !<reference> cf5308c7-918f-4bfb-9fdd-a4d67564934f
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      objectTag: Cake
-  ScriptTypes:
-    "":
-      {}
 - !<RenderMeshVisual/42656612-8023-4c40-80a7-870dab001eb5>
   PrefabRemaps:
     []
@@ -356,7 +340,7 @@
   Children:
     - !<own> bb8dc1fb-1897-4ec3-b759-be00f5fb1321
   Components:
-    - !<own> 40bdcdc5-c118-4015-9bcc-86cd6b95b832
+    []
 - !<BodyComponent/4a3c04a0-16c3-44ee-a3bf-8f835dbd3bed>
   PrefabRemaps:
     []
