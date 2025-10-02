@@ -12,6 +12,7 @@ CollapsedEntities:
       - Echopark.hdr
       - Materials
       - Materials/Obstacle_Material.mat
+      - Materials/Tile_Material.mat
       - Meshes
       - Prefabs/ObstacleTile.prefab
       - Prefabs/Obstacles/High_Obstacle
@@ -35,7 +36,6 @@ CollapsedEntities:
       - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.005.mesh
       - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.006.mesh
       - Prefabs/Obstacles/High_Obstacle/Meshes/Cube.007.mesh
-      - Prefabs/Obstacles/Prefabs
       - Prefabs/Obstacles/Prefabs/High_Obstacle.prefab
       - Prefabs/Obstacles/Prefabs/Short_obstacle.prefab
       - Prefabs/Obstacles/Prefabs/Short_obstacle2.prefab
