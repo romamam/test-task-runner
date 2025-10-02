@@ -32,7 +32,6 @@ export class ObstacleInstantiator extends BaseScriptComponent {
      */
     private init(): void {
         if (this.obstacles.length === 0) {
-            print("ERROR: No obstacle prefabs assigned!");
             return;
         }
         
@@ -41,8 +40,6 @@ export class ObstacleInstantiator extends BaseScriptComponent {
         for (let i = 0; i < 3; i++) {
             this.instantiateObstacle();
         }
-        
-        print("ObstacleInstantiator initialized - 3 obstacles spawned");
     }
     
     /**
@@ -66,9 +63,11 @@ export class ObstacleInstantiator extends BaseScriptComponent {
         const randomObstacleIndex = Math.floor(MathUtils.randomRange(0, this.obstacles.length));
         const newObstacle = this.obstacles[randomObstacleIndex].instantiate(this.sceneObject);
         const randomXIndex = Math.floor(MathUtils.randomRange(0, this.xPositions.length));
-        newObstacle.getTransform().setLocalPosition(new vec3(this.xPositions[randomXIndex], 0, this.currentZPosition));
-        this.currentZPosition -= this.distance;
+        const transform = newObstacle.getTransform();
+        if (transform) {
+            transform.setLocalPosition(new vec3(this.xPositions[randomXIndex], 0, this.currentZPosition));
+        }
         
-        print("Obstacle instantiated at position: " + this.xPositions[randomXIndex] + ", " + this.currentZPosition);
+        this.currentZPosition -= this.distance;
     }
 }
