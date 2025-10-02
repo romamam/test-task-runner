@@ -90,9 +90,13 @@ export class PickUpInstantiator extends BaseScriptComponent {
         const randomZ = MathUtils.randomRange(-20, 20);
         
         const newCake = this.cakePrefab.instantiate(this.sceneObject);
-        const transform = newCake.getTransform();
-        if (transform) {
-            transform.setLocalPosition(new vec3(randomX, 10, randomZ));
+        
+        // Встановлюємо позицію через Transform
+        if (newCake) {
+            const transform = newCake.getTransform();
+            if (transform) {
+                transform.setLocalPosition(new vec3(randomX, 10, randomZ));
+            }
         }
         
         // Встановлюємо унікальну назву для торта
@@ -100,9 +104,13 @@ export class PickUpInstantiator extends BaseScriptComponent {
         
         this.startCakeRotation(newCake);
         
-        const sceneTransform = this.sceneObject.getTransform();
-        if (sceneTransform) {
-            this.lastSpawnZ = sceneTransform.getLocalPosition().z;
+        // Отримуємо позицію через Transform
+        if (this.sceneObject) {
+            const transform = this.sceneObject.getTransform();
+            if (transform) {
+                const position = transform.getLocalPosition();
+                this.lastSpawnZ = position.z;
+            }
         }
     }
     
@@ -124,9 +132,13 @@ export class PickUpInstantiator extends BaseScriptComponent {
             const rotationAngle = elapsedTime * rotationSpeed;
             
             const rotation = quat.fromEulerAngles(0, rotationAngle, 0);
-            const transform = cake.getTransform();
-            if (transform) {
-                transform.setLocalRotation(rotation);
+            
+            // Встановлюємо обертання через Transform
+            if (cake) {
+                const transform = cake.getTransform();
+                if (transform) {
+                    transform.setLocalRotation(rotation);
+                }
             }
         });
     }

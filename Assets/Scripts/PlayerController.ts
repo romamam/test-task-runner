@@ -56,9 +56,6 @@ export class PlayerController extends BaseScriptComponent {
     private movementTime: number = 0.2; // Загальний час руху
     private currentMoveTime: number = 0; // Поточний час руху
     
-    // Змінна для швидкості руху вперед
-    private speed: number = 50; // Швидкість руху вперед
-    
     // Змінні для керування напрямком анімації
     private currentDir: number = 0; // Поточний напрямок (-1 = ліво, 0 = центр, 1 = право)
     private targetDir: number = 0; // Цільовий напрямок
@@ -71,9 +68,6 @@ export class PlayerController extends BaseScriptComponent {
     
     // Змінна для зберігання посилання на Update подію
     private updateEvent: any = null;
-    
-    // Змінні для скидання в init()
-    private slide: boolean = false;
     
     // Змінна для контролю початку гри
     public gameStart: boolean = false;
@@ -134,13 +128,11 @@ export class PlayerController extends BaseScriptComponent {
     }
     
     onAwake() {
-        
         this.updateEvent = this.createEvent("UpdateEvent");
         this.updateEvent.bind(this.onUpdate.bind(this));
         
         const startEvent = this.createEvent("OnStartEvent");
         startEvent.bind(this.init.bind(this));
-        
         
         if (this.collider) {
             this.collider.onCollisionEnter.add((collisionInfo: any) => {
@@ -153,8 +145,6 @@ export class PlayerController extends BaseScriptComponent {
      * Ініціалізація та скидання всіх змінних гри
      */
     init(): void {
-        print("PlayerController: init() called via OnStartEvent");
-        
         this.changeDir = false;
         this.currentDir = 0;
         this.targetDir = 0;
@@ -162,7 +152,6 @@ export class PlayerController extends BaseScriptComponent {
         this.step = 0;
         
         this.jump = false;
-        this.slide = false;
         this.jumpStartTime = 0;
         
         this.gameStart = false;
@@ -179,6 +168,11 @@ export class PlayerController extends BaseScriptComponent {
         
         if (this.collider) {
             this.collider.enabled = true;
+        }
+        
+        // Вимікаємо UpdateEvent при рестарті
+        if (this.updateEvent) {
+            this.updateEvent.enabled = false;
         }
         
         this.currentPosition = vec3.zero();
@@ -211,7 +205,6 @@ export class PlayerController extends BaseScriptComponent {
         // Показуємо StartButton після рестарту
         if (this.startScreen) {
             this.startScreen.enabled = true;
-            print("PlayerController: StartScreen enabled after restart");
         }
         
         this.updateLivesText();
@@ -394,7 +387,6 @@ export class PlayerController extends BaseScriptComponent {
      */
     canGameStart(): boolean {
         if (this.gameStart) {
-            print("PlayerController: canGameStart() - gameStart is true, setting animation to run");
             // Встановлюємо анімацію на run коли гра починається
             if (this.animationStateManager && (this.animationStateManager as any).setParameter) {
                 (this.animationStateManager as any).setParameter("idle", false);
@@ -420,62 +412,38 @@ export class PlayerController extends BaseScriptComponent {
         
         if (this.updateEvent) {
             this.updateEvent.enabled = true;
-            print("PlayerController: UpdateEvent enabled");
         }
-        
-        print("Game started - player can now move");
     }
     
     /**
      * Restart the game - reset everything and start over
      */
     restartGame(): void {
-        print("Restarting game...");
-        
         if (this.tileManager && (this.tileManager as any).resetHit !== undefined) {
             (this.tileManager as any).resetHit = true;
-            print("TileManager reset signal sent");
         }
         
         this.init();
-        
-        
-        print("Game restarted successfully - waiting for StartButton");
-    }
-    
-    onStart() {
-        // Ініціалізація тепер відбувається в init() функції
     }
     
     /**
      * Обробка свайпу вліво
      */
     leftSwipe(): void {
-        print("Left swipe detected");
-        
-    
         if (this.changeDir) {
-            print("Movement in progress - input blocked");
             return;
         }
         
-        // Перевіряємо, чи playerObject призначений
         if (!this.playerObject) {
-            print("ERROR: playerObject not assigned!");
             return;
         }
         
-        // Оновлюємо поточну позицію
         this.currentPosition = this.playerObject.getTransform().getLocalPosition();
         
-        // Перевіряємо, чи гравець не вийде за ліву межу екрану
         if (this.currentPosition.x >= 0) {
             this.changeDir = true;
-            this.step = -2; // Рухаємо вліво з кроком -5
-            this.targetDir = -1; // Встановлюємо цільовий напрямок вліво
-            print("Moving left - current position: " + this.currentPosition.x);
-        } else {
-            print("Cannot move left - player is already at left boundary");
+            this.step = -2;
+            this.targetDir = -1;
         }
     }
     
@@ -483,30 +451,20 @@ export class PlayerController extends BaseScriptComponent {
      * Обробка свайпу вправо
      */
     rightSwipe(): void {
-        print("Right swipe detected");
-        
         if (this.changeDir) {
-            print("Movement in progress - input blocked");
             return;
         }
         
-        // Перевіряємо, чи playerObject призначений
         if (!this.playerObject) {
-            print("ERROR: playerObject not assigned!");
             return;
         }
         
-        // Оновлюємо поточну позицію
         this.currentPosition = this.playerObject.getTransform().getLocalPosition();
         
-        // Перевіряємо, чи гравець не вийде за праву межу екрану
         if (this.currentPosition.x <= 0) {
             this.changeDir = true;
-            this.step = 2; // Рухаємо вправо з кроком 5
-            this.targetDir = 1; // Встановлюємо цільовий напрямок вправо
-            print("Moving right - current position: " + this.currentPosition.x);
-        } else {
-            print("Cannot move right - player is already at right boundary");
+            this.step = 2;
+            this.targetDir = 1;
         }
     }
     
@@ -514,31 +472,16 @@ export class PlayerController extends BaseScriptComponent {
      * Handle up swipe input and trigger jump animation
      */
     upSwipe(): void {
-        print("Up swipe detected - triggering jump");
-        
         if (!this.animationStateManager) {
-            print("ERROR: animationStateManager not assigned!");
             return;
         }
         
         this.jump = true;
         this.jumpStartTime = getTime();
         
-        // Trigger jump animation using Animation State Manager
         if ((this.animationStateManager as any).setTrigger) {
             (this.animationStateManager as any).setTrigger("jump");
-            print("Jump animation triggered");
-        } else {
-            print("ERROR: setTrigger method not found in Animation State Manager");
         }
-    }
-    
-    /**
-     * Обробка свайпу вниз (поки що порожня)
-     */
-    downSwipe(): void {
-        print("Down swipe detected - not implemented yet");
-        // TODO: Реалізувати рух вниз
     }
     
     /**
@@ -547,7 +490,6 @@ export class PlayerController extends BaseScriptComponent {
     private onUpdate(): void {
 
         const currentSpeed = this.getCurrentSpeed();
-        print("Current Speed: " + currentSpeed + " (base: " + this.baseSpeed + ", multiplier: " + this.speedMultiplier + ")");
         
         if (!this.canGameStart()) {
             return;
@@ -566,8 +508,6 @@ export class PlayerController extends BaseScriptComponent {
                 this.changeDir = false;
                 this.currentMoveTime = 0;
                 this.step = 0;
-                
-                print("Movement completed - final position: " + this.currentPosition.x);
             } else {
                 // Рухується - оновлюємо час та позицію
                 this.currentMoveTime += getDeltaTime(); // Збільшуємо час на 0.5
@@ -577,8 +517,6 @@ export class PlayerController extends BaseScriptComponent {
                 
                 // Застосовуємо оновлену позицію до Transform гравця
                 this.playerObject.getTransform().setLocalPosition(this.targetPosition);
-                
-                print("Moving - currentMoveTime: " + this.currentMoveTime + ", position: " + this.targetPosition.x);
             }
         } else {
             // Якщо немає руху, скидаємо targetDir до 0
@@ -600,7 +538,6 @@ export class PlayerController extends BaseScriptComponent {
             if (elapsedTime >= this.jumpDuration) {
                 this.jump = false;
                 this.targetPosition.y = 0;
-                print("Jump completed - returned to ground");
             } else {
                 const jumpProgress = elapsedTime / this.jumpDuration;
                 
