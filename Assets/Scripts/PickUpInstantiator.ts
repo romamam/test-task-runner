@@ -67,16 +67,27 @@ export class PickUpInstantiator extends BaseScriptComponent {
      * Try to spawn a cake based on probability and distance
      */
     private trySpawnCake(): void {
-        const currentZ = this.sceneObject.getTransform().getLocalPosition().z;
-        
+        if (!this.sceneObject) {
+            print("ERROR: sceneObject is null in PickUpInstantiator");
+            return;
+        }
+    
+        const transform = this.sceneObject.getTransform();
+        if (!transform) {
+            print("ERROR: sceneObject transform is null");
+            return;
+        }
+    
+        const currentZ = transform.getLocalPosition().z;
+    
         if (Math.abs(currentZ - this.lastSpawnZ) < this.minDistance) {
             return;
         }
-        
+    
         if (Math.random() > this.spawnChance) {
             return;
         }
-        
+    
         this.spawnCake();
     }
     
